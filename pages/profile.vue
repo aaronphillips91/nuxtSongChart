@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="profile"
-    class="scPage scBackground scBorder scRounded p-2 mt-2 flex gap-4">
+    class="scPage scBackground scBorder scRounded border rounded-lg p-2 mt-2 flex gap-4">
     <img
-      class="size-24 rounded-md scBorder"
+      class="size-24 rounded-full scBorder"
       :src="profile.pic"
       alt="" />
     <div class="flex flex-col w-full justify-center">
@@ -35,10 +35,11 @@
 <script setup>
   definePageMeta({
     middleware: "auth",
-  });
+  })
 
   const client = useSupabaseClient();
-  const profile = useProfileStore();
+  const useProfile = useProfileStore();
+  const profile = useProfile.profile
   const user = useSupabaseUser();
   async function signout() {
     const { error } = await client.auth.signOut();
@@ -50,11 +51,6 @@
       navigateTo("/login");
     }
   }
-
-  onMounted(() => {
-    profile.getProfile();
-    console.log("the profile is: ", profile);
-  });
 </script>
 
 <style></style>
