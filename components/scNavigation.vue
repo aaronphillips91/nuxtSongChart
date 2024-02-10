@@ -11,7 +11,7 @@
     <!--Navigation Links-->
     <div
       v-if="user"
-      class="flex gap-8 items-center font-semibold">
+      class="flex items-center gap-8 font-semibold">
       <NuxtLink
         tag="button"
         v-for="link in links"
@@ -22,7 +22,7 @@
     </div>
     <!--Auth Avatar-->
     <NuxtLink
-      v-if="user"
+      v-if="useProfile.profile"
       to="/profile"
       class="size-12">
       <UAvatar
@@ -46,7 +46,7 @@
 
 <script setup>
   const user = useSupabaseUser();
-  const profile = useProfileStore();
+  const useProfile = useProfileStore();
 
   const links = [
     {

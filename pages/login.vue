@@ -1,6 +1,6 @@
 <template>
-  <div class="scPage scBackground scBorder scRounded m-4 p-2 flex gap-2">
-    <div class="w-full flex flex-col gap-4">
+  <div class="flex gap-2 p-2 m-4 scPage scBackground scBorder scRounded">
+    <div class="flex flex-col w-full gap-4">
       <h1>Login to SongChart</h1>
       <div class="">
         <label for="email">email</label>
@@ -38,9 +38,9 @@
         </div>
       </div>
     </div>
-    <div class="w-full hidden md:flex">
+    <div class="hidden w-full md:flex">
       <img
-        class="rounded h-72 w-full object-cover"
+        class="object-cover w-full rounded h-72"
         src="../static/images/signinimg.jpg"
         alt="" />
     </div>
@@ -50,7 +50,7 @@
 <script setup>
   const client = useSupabaseClient();
   const user = useSupabaseUser();
-  const profile = useProfileStore();
+  const useProfile = useProfileStore();
   const email = ref("");
   const password = ref("");
   const loading = ref(false);
@@ -70,9 +70,8 @@
       errorMsg.value = null;
       email.value = "";
       password.value = "";
-      console.log(data, "Signed In!");
       loading.value = false;
-      profile.getProfile();
+      await useProfile.getProfile();
       navigateTo("/profile");
     }
   }

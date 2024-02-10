@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="profile"
-    class="scPage scBackground scBorder scRounded border rounded-lg p-2 mt-2 flex gap-4">
+    class="flex gap-4 p-2 mt-2 border rounded-lg scPage scBackground scBorder scRounded">
     <img
-      class="size-24 rounded-full scBorder"
+      class="rounded-full size-24 scBorder"
       :src="profile.pic"
       alt="" />
-    <div class="flex flex-col w-full justify-center">
+    <div class="flex flex-col justify-center w-full">
       <h1 class="line-clamp-1">
         {{ profile.username }}
       </h1>
@@ -17,37 +17,67 @@
       :items="items"
       :popper="{ placement: 'bottom-end' }">
       <UButton
-        class="size-8 items-center justify-center"
+        class="items-center justify-center size-8"
         color="gray"
         square
         icon="i-heroicons-pencil-square-solid" />
     </UDropdown>
   </div>
-  <div class="scPage my-8 justify-end flex">
-    <UButton
-      class="ml-auto"
-      @click="signout()"
-      >Logout</UButton
-    >
+  <div
+    v-else
+    class="flex gap-4 p-2 mt-2 border rounded-lg scPage scBackground scBorder scRounded">
+    Loading User Profile...
   </div>
 </template>
 
 <script setup>
   definePageMeta({
     middleware: "auth",
-  })
+  });
 
   const client = useSupabaseClient();
   const useProfile = useProfileStore();
-  const profile = useProfile.profile
+  const profile = useProfile.profile;
   const user = useSupabaseUser();
+
+  const items = [
+    [
+      {
+        label: "Edit Profile",
+        icon: "i-heroicons-pencil-square-20-solid",
+        click: () => {
+          console.log("Edit");
+        },
+      },
+    ],
+    [
+      {
+        label: "Manage Membership",
+        icon: "i-heroicons-queue-list-20-solid",
+      },
+      {
+        label: "Open ShowMode",
+        icon: "i-heroicons-microphone-20-solid",
+      },
+    ],
+    [
+      {
+        label: "Logout",
+        icon: "i-heroicons-arrow-right-start-on-rectangle-solid",
+        click: () => {
+          signout();
+        },
+      },
+    ],
+  ];
+
   async function signout() {
     const { error } = await client.auth.signOut();
     if (error) {
       console.error(error);
     } else {
       console.log("signed out");
-      profile.clearProfile();
+      useProfile.clearProfile();
       navigateTo("/login");
     }
   }

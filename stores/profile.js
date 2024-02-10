@@ -17,12 +17,11 @@ export const useProfileStore = defineStore({
         console.log("Error fetching profile", error);
         return;
       } else {
-        console.log("Profile fetched", data[0]);
         this.profile = data[0];
       }
     },
     async clearProfile() {
-      this.profile = {};
+      this.profile = null;
     },
   },
   persist: true,
