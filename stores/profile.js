@@ -11,7 +11,7 @@ export const useProfileStore = defineStore({
       if (!user) {
         return;
       }
-
+      console.log(user.value.id)
       const { data, error } = await client
         .from("profiles")
         .select("*")

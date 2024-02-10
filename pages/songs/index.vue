@@ -1,4 +1,5 @@
 <template>
+  <SongsHeader></SongsHeader>
   <NuxtLink
     :to="`/songs/${song.id}`"
     class="scPage hover:bg-opacity-50 hover:cursor-pointer flex gap-2 p-2 first-of-type:mt-2 scBorder scBackground scRounded"
