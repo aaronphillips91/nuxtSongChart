@@ -1,8 +1,8 @@
 <template>
-  <SongsHeader></SongsHeader>
+  <SongsHeader @filterName="handleFilter"  />
   <NuxtLink
     :to="`/songs/${song.id}`"
-    class="scPage hover:bg-opacity-50 hover:cursor-pointer flex gap-2 p-2 first-of-type:mt-2 scBorder scBackground scRounded"
+    class="scPage hover:bg-primary-500/10 hover:cursor-pointer flex gap-2 p-2 first-of-type:mt-2 scBorder scBackground scRounded"
     v-for="song in songs">
     <div>
       <img
@@ -23,6 +23,13 @@
   });
   const client = useSupabaseClient();
   const songs = ref(null);
+
+  const activeFilter = ref("mySongs")
+
+  function handleFilter(filter) {
+    activeFilter.value = filter;
+    console.log(activeFilter.value)
+  }
 
   async function fetchSongs() {
     const { data, error } = await client.from("songs").select("*");

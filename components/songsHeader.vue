@@ -1,11 +1,11 @@
 <template>
-  <div class="scPage my-4 flex flex-col gap-2">
+  <div class="scPage my-4 flex flex-col gap-4">
     <div class="flex justify-between">
       <h1>Songs</h1>
       <UButton>Add Song</UButton>
     </div>
     <div>
-      <UTabs :items="items">
+      <UTabs @change="handleClick" :items="items">
 
       </UTabs>
   </div>
@@ -31,6 +31,13 @@ const items = [
     label: "Top Songs"
   },
 ]
+
+const emits = defineEmits(['filterName'])
+
+function handleClick(index) {
+  const item = items[index]
+  emits('filterName', item.slot)
+}
 </script>
 
 <style>
