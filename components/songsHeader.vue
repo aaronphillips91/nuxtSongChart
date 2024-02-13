@@ -5,7 +5,11 @@
       <UButton>Add Song</UButton>
     </div>
     <div>
-      <UTabs @change="handleClick" :items="items">
+      <UTabs :ui="{
+        list: {
+          background: 'bg-neutral-200 dark:bg-neutral-800'
+        }
+      }" @change="handleClick" :items="items">
 
       </UTabs>
   </div>

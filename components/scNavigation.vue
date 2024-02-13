@@ -72,6 +72,6 @@
 
 <style scoped>
   .router-link-active {
-    @apply text-primary-600 dark:text-primary-500 bg-neutral-500/5;
+    @apply text-primary-600 dark:text-primary-500 ;
   }
 </style>
