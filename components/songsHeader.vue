@@ -2,7 +2,7 @@
   <div class="scPage my-4 flex flex-col gap-4">
     <div class="flex justify-between">
       <h1>Songs</h1>
-      <UButton>Add Song</UButton>
+      <UButton variant="outline" >Add Song</UButton>
     </div>
     <div>
       <UTabs :ui="{

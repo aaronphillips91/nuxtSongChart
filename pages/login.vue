@@ -25,13 +25,14 @@
         <UButton
           block
           :loading="loading"
+          class="transition-colors duration-150"
           @click="login()"
           >Login</UButton
         >
         <div class="flex gap-2">
           <div>Don't have an account yet?</div>
           <NuxtLink
-            class="font-bold text-primary-600"
+            class="font-bold text-primary-500 hover:text-primary-600 transition-colors duration-150"
             to="/signup"
             >Register Here</NuxtLink
           >
