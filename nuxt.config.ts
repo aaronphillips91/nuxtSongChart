@@ -19,12 +19,5 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname),
-    },
-  },
-  app: {
-    pageTransition: { name: 'page', mode: 'out-in'}
-  }
+  
 });

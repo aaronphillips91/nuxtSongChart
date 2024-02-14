@@ -7,7 +7,13 @@
     <div>
       <UTabs :ui="{
         list: {
-          background: 'bg-neutral-200 dark:bg-neutral-800'
+          background: 'bg-neutral-200 dark:bg-neutral-900',
+          marker: {
+            background: 'bg-white dark:bg-gray-800',
+          },
+          tab: {
+            inactive: 'text-gray-500 dark:text-gray-500'
+          }
         }
       }" @change="handleClick" :items="items">
 
