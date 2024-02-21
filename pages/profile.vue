@@ -10,7 +10,7 @@
       <h1 class="line-clamp-1">
         {{ profile.username }}
       </h1>
-      <p>{{ profile.contact_email }}</p>
+      <p class="line-clamp-1">{{ profile.contact_email }}</p>
     </div>
     <UDropdown
       class="h-fit"

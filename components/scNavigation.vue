@@ -1,24 +1,26 @@
 <template>
   <nav
     class="hidden sm:flex max-w-7xl justify-between mx-auto rounded-b-lg !border-t-0 scBorder scBackground p-2">
-    <!--SongChart Icon-->
-    <NuxtLink to="/">
-      <img
-        class="h-12 invert-0 dark:invert"
-        src="../static/logos/SongChart Icon.svg"
-        alt="" />
-    </NuxtLink>
-    <!--Navigation Links-->
-    <div
-      v-if="user"
-      class="flex items-center gap-8 font-semibold">
-      <NuxtLink
-        tag="button"
-        v-for="link in links"
-        :to="link.path"
-        class="p-2 rounded-lg hover:text-primary-600"
-        >{{ link.name }}</NuxtLink
-      >
+    <div class="flex items-center gap-8">
+      <!--SongChart Icon-->
+      <NuxtLink to="/">
+        <img
+          class="h-12 invert-0 dark:invert"
+          src="../static/logos/SongChart Icon.svg"
+          alt="" />
+      </NuxtLink>
+      <!--Navigation Links-->
+      <div
+        v-if="user"
+        class="flex items-center gap-8 font-semibold">
+        <NuxtLink
+          tag="button"
+          v-for="link in links"
+          :to="link.path"
+          class="p-2 rounded-lg hover:text-primary-600"
+          >{{ link.name }}</NuxtLink
+        >
+      </div>
     </div>
     <!--Auth Avatar-->
     <NuxtLink
@@ -61,10 +63,6 @@
     {
       name: "ShowMode",
       path: "/showmode",
-    },
-    {
-      name: "Tutorials",
-      path: "/tutorials",
     },
   ];
 </script>
