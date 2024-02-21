@@ -1,31 +1,37 @@
+import { defineStore } from "pinia";
+
 export const useProfileStore = defineStore({
   id: "ProfileStore",
   state: () => ({
     profile: null,
   }),
   actions: {
-    getProfile: async () => {
+    async getProfile() {
       const client = useSupabaseClient();
       const user = useSupabaseUser();
-      console.log(user.value)
-      if (!user) {
+
+      if (!user.value) {
         return;
       }
-      console.log(user.value.id)
+
       const { data, error } = await client
         .from("profiles")
         .select("*")
         .eq("uuid", user.value.id);
 
       if (error) {
-        console.log("Error fetching profile", error);
+        console.error("Error fetching profile", error);
         return;
-      } else {
-        this.profile = data[0]; // Now using arrow function syntax
       }
+
+      // Accessing store state using 'this'
+      this.profile = data[0];
     },
-    clearProfile: () => {
-      this.profile = null; // Now using arrow function syntax
+    clearProfile() {
+      // Accessing store state using 'this'
+      console.log("Clearing profile");
+      this.profile = null;
+      console.log("Profile cleared");
     },
   },
   persist: true,

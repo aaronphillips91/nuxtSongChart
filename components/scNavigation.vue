@@ -22,13 +22,13 @@
     </div>
     <!--Auth Avatar-->
     <NuxtLink
-      v-if="useProfile"
+      v-if="profile"
       to="/profile"
       class="size-12">
       <UAvatar
         class="size-12 scBorder"
-        :src="useProfile.profile.pic"
-        alt=""
+        :src="profile.pic"
+        alt="Avatar"
         size="lg" />
     </NuxtLink>
     <NuxtLink
@@ -45,10 +45,9 @@
 </template>
 
 <script setup>
-
   const user = useSupabaseUser();
   const useProfile = useProfileStore();
-  //const profile = useProfile.profile;
+  const profile = computed(() => useProfile.profile);
 
   const links = [
     {
@@ -72,6 +71,6 @@
 
 <style scoped>
   .router-link-active {
-    @apply text-primary-600 dark:text-primary-500 ;
+    @apply text-primary-600 dark:text-primary-500;
   }
 </style>

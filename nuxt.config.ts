@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/ui",
     "@nuxtjs/supabase",
+    "@nuxt/image"
   ],
   postcss: {
     plugins: {
