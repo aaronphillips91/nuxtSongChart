@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col gap-4 my-4 scPage">
     <div class="flex justify-between">
-      <h1>Songs</h1>
-      <UButton variant="outline">Add Song</UButton>
+      <h1>Setlists</h1>
+      <UButton variant="outline">Add Setlist</UButton>
     </div>
     <div>
       <UTabs
@@ -27,20 +27,12 @@
 <script setup>
   const items = [
     {
-      slot: "mySongs",
-      label: "My Songs",
+      slot: "upcoming",
+      label: "Upcoming",
     },
     {
-      slot: "myLibrary",
-      label: "My Library",
-    },
-    {
-      slot: "newReleases",
-      label: "New Releases",
-    },
-    {
-      slot: "topSongs",
-      label: "Top Songs",
+      slot: "past",
+      label: "Past",
     },
   ];
 
