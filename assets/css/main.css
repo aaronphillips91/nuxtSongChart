@@ -8,22 +8,22 @@ body {
 
 @layer base {
   h1 {
-    @apply text-4xl font-bold;
+    @apply text-2xl sm:text-4xl font-bold;
   }
   h2 {
-    @apply text-3xl font-bold;
+    @apply text-xl sm:text-3xl font-bold;
   }
   h3 {
-    @apply text-2xl font-bold;
+    @apply text-lg sm:text-2xl font-bold;
   }
   h4 {
-    @apply text-xl font-bold;
+    @apply text-base sm:text-xl font-bold;
   }
   p {
-    @apply text-base font-semibold;
+    @apply text-sm sm:text-base font-semibold;
   }
   label {
-    @apply text-sm font-semibold;
+    @apply text-xs sm:text-sm font-semibold;
   }
 }
 

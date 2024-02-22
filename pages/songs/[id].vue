@@ -3,13 +3,13 @@
     v-if="song"
     class="flex gap-4 p-2 mt-2 scPage scBackground scBorder scRounded">
     <img
-      class="rounded-md size-24 scBorder"
+      class="rounded-md size-20 sm:size-24 scBorder"
       :src="song.art"
       alt="" />
     <div class="flex flex-col justify-center w-full">
-      <h1 class="line-clamp-1">
+      <h2 class="line-clamp-1">
         {{ song.title }}
-      </h1>
+      </h2>
       <p>{{ song.artist }}</p>
     </div>
     <UDropdown
