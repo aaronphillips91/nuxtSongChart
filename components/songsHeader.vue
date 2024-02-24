@@ -2,7 +2,11 @@
   <div class="flex flex-col gap-4 my-4 scPage">
     <div class="flex justify-between">
       <h1>Songs</h1>
-      <UButton variant="outline">Add Song</UButton>
+      <UButton
+        @click="openModal"
+        variant="outline"
+        >Add Song</UButton
+      >
     </div>
     <div>
       <UTabs
@@ -44,7 +48,13 @@
     },
   ];
 
-  const emits = defineEmits(["filterName"]);
+  const isOpen = ref(false);
+
+  const emits = defineEmits(["filterName", "modal"]);
+
+  function openModal() {
+    emits("modal");
+  }
 
   function handleClick(index) {
     const item = items[index];

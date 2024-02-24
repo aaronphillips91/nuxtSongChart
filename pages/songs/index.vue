@@ -1,5 +1,7 @@
 <template>
-  <SongsHeader @filterName="handleFilter" />
+  <SongsHeader
+    @modal="openModal"
+    @filterName="handleFilter" />
   <NuxtLink
     :to="`/songs/${song.id}`"
     class="flex gap-2 p-2 scPage hover:bg-primary-500/10 hover:cursor-pointer first-of-type:mt-2 scBorder scBackground scRounded"
@@ -15,6 +17,47 @@
       <p>{{ song.artist }}</p>
     </div>
   </NuxtLink>
+
+  <UModal v-model="isOpen">
+    <UCard>
+      <template #header>
+        <div class="flex justify-between h-8">
+          <h3>New Song</h3>
+          <UButton
+            @click="isOpen = false"
+            icon="i-heroicons-x-mark"
+            size="sm"
+            color="primary"
+            square
+            variant="solid" />
+        </div>
+      </template>
+
+      <div class="">
+        <div class="">
+          <label for="newTitle">Song Title</label>
+          <UInput
+            v-model="newTitle"
+            type="text"
+            required />
+        </div>
+        <div class="">
+          <label for="newArtist">Artist Name</label>
+          <UInput
+            v-model="newArtist"
+            type="text"
+            required />
+        </div>
+        <div class="">
+          <label for="newAlbum">Album</label>
+          <UInput
+            v-model="newAlbum"
+            type="text"
+            required />
+        </div>
+      </div>
+    </UCard>
+  </UModal>
 </template>
 
 <script setup>
@@ -23,6 +66,12 @@
   });
   const client = useSupabaseClient();
   const songs = ref(null);
+
+  const isOpen = ref(false);
+
+  function openModal() {
+    isOpen.value = true;
+  }
 
   const activeFilter = ref("mySongs");
 
