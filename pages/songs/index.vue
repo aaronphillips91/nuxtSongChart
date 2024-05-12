@@ -4,7 +4,7 @@
     @filterName="handleFilter" />
   <NuxtLink
     :to="`/songs/${song.id}`"
-    class="flex gap-2 p-2 scPage hover:bg-primary-500/10 hover:cursor-pointer first-of-type:mt-2 scBorder scBackground scRounded"
+    class="flex gap-2 p-2 scPage hover:bg-gradient-to-br from-primary-500/50 to-primary-500/0 hover:cursor-pointer first-of-type:mt-2 scBorder scBackground scRounded"
     v-for="song in songs">
     <div>
       <img
