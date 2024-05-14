@@ -6,7 +6,7 @@
       src="../static/logos/SongChart Icon.svg"
       alt="" />
 
-    <h2>A home for your songs</h2>
+    <h2>Your songs, charted.</h2>
   </div>
   <div class="grid grid-cols-1 gap-4 my-12 md:grid-cols-2 scPage">
     <div class="w-full border rounded-lg h-72 scBackground scBorder"></div>

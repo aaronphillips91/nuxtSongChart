@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
 
 export const useProfileStore = defineStore({
+
   id: "ProfileStore",
   state: () => ({
     profile: null,
   }),
+
   actions: {
     async getProfile() {
       const client = useSupabaseClient();
@@ -24,14 +26,10 @@ export const useProfileStore = defineStore({
         return;
       }
 
-      // Accessing store state using 'this'
       this.profile = data[0];
     },
-    clearProfile() {
-      // Accessing store state using 'this'
-      console.log("Clearing profile");
+    async clearProfile() {
       this.profile = null;
-      console.log("Profile cleared");
     },
   },
   persist: true,
