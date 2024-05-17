@@ -9,7 +9,10 @@
     <h2>Your songs, charted.</h2>
   </div>
   <div class="grid grid-cols-1 gap-4 my-12 md:grid-cols-2 scPage">
-    <div class="w-full border rounded-lg h-72 scBackground scBorder"></div>
+    <div class="flex w-full p-4 border rounded-lg h-72 scBackground scBorder">
+      <div class="flex items-center justify-center w-full h-full bg-red-500">Hello World</div>
+      <div class="w-full h-full bg-green-500"><img src="" alt=""></div>
+    </div>
     <div class="w-full border rounded-lg h-72 scBackground scBorder"></div>
     <div class="w-full border rounded-lg h-72 scBackground scBorder"></div>
     <div class="w-full border rounded-lg h-72 scBackground scBorder"></div>

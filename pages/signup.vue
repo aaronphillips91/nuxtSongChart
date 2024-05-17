@@ -3,16 +3,15 @@
     <div class="flex flex-col w-full gap-4 h-fit">
       <h1>Create a SongChart Account</h1>
       <div class="flex flex-col gap-4">
-        <scButton full text="Hello"/>
         <div>
           <label for="email">email</label>
-          <UInput type="text" size="md" icon="i-heroicons-envelope" :model-value=email />
+          <UInput type="text" size="md" icon="i-heroicons-envelope" :model-value=email v-model="email" />
         </div>
         <div>
           <label for="password">password</label>
-          <UInput type="text" size="md" icon="i-heroicons-lock-closed" :model-value=password />
+          <UInput type="password" size="md" icon="i-heroicons-lock-closed" :model-value=password v-model="password" />
         </div>
-        <UButton label="Sign Up" block variant="soft"/>
+        <UButton @click="register()" label="Sign Up" block variant="soft"/>
         <div class="flex gap-2">
           <div>Already Have An Account??</div>
           <NuxtLink
@@ -33,10 +32,6 @@
 </template>
 
 <script setup>
-
-  const client = useSupabaseClient();
-  const user = useSupabaseUser();
-  const useProfile = useProfileStore();
   const email = ref("");
   const password = ref("");
   const loading = ref(false);
@@ -44,23 +39,10 @@
 
   async function register() {
     loading.value = true;
-    const { data, error } = await client.auth.signUp({
-      email: email.value,
-      password: password.value,
-    });
-    if (error) {
-      console.error(error);
-      errorMsg.value = error.message;
-      loading.value = false;
-    } else {
-      errorMsg.value = null;
-      email.value = "";
-      password.value = "";
-      confirmPassword.value = "";
-      await useProfile.getProfile();
-      loading.value = false;
-      navigateTo("/createprofile");
-    }
+    const authStore = useAuthStore();
+    console.log(email.value, password.value)
+    await authStore.signUp(email.value, password.value)
+
   }
 </script>
 

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useProfileStore } from './profile'
 
 export const useAuthStore = defineStore({
   id: 'AuthStore',
@@ -17,6 +18,8 @@ export const useAuthStore = defineStore({
         console.error('Error: ', error.message)
       } else {
         this.user = data.user
+        const profileStore = useProfileStore();
+        await profileStore.createProfile(data.user);
         navigateTo('/profile')
       }
     },
