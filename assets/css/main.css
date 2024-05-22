@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-neutral-50 dark:bg-neutral-950;
+  @apply bg-zinc-50 dark:bg-zinc-950;
 }
 
 @layer base {
@@ -29,10 +29,10 @@ body {
 
 @layer utilities {
   .scBorder {
-    @apply border-t border-x last-of-type:border-b border-neutral-300 dark:border-neutral-700;
+    @apply border-t border-x last-of-type:border-b border-zinc-300 dark:border-zinc-700;
   }
   .scBackground {
-    @apply bg-white dark:bg-neutral-900;
+    @apply bg-white dark:bg-zinc-900;
   }
   .scPage {
     @apply max-w-7xl mx-2 xl:mx-auto;

@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   darkMode: "class",
   content: [
@@ -12,21 +14,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        c: {
-          primary: '#827AF0',
-          secondary: '#1A373D',
-          accent: '#7BAE68',
-          dark: {
-            1: '#0B0B14',
-            2: '#1E1E25',
-          },
-          red: '#EF4444',
-          amber: '#CA8A04',
-          blue: '#3B82F6',
-          pink: '#EC4899',
-          teal: '#14B8A6',
-          lime: '#84CC16',
-        }
+        primary: colors.yellow,
+        gray: colors.zinc,
+        danger: colors.red,
+        warning: colors.amber,
       }
     },
   },
