@@ -8,56 +8,50 @@ export const useProfileStore = defineStore({
   }),
 
   actions: {
+    //Creates a user profile when the user registers.  This is only called upon registration.
     async createProfile(user) {
-      const client = useSupabaseClient();
-      const { error } = await client
-      .from("profiles")
+      const supabase = useSupabaseClient();
+      const { error } = await supabase
+      .from("profile")
       .insert({
-        uuid: user.id,
-        username: user.email,
-        contact_email: user.email,
+        email: user.email,
         sub_tier: 'SongChart Free',
-        setup_complete: false,
-        pic: 'https://uvsyswbkrxqqofowmkqm.supabase.co/storage/v1/object/public/profile_pics/5ec58552-f138-44d6-851b-018c726ba1ca.png'
       })
     },
+    //Fetches the profile using the logged in user's uuid.
     async getProfile() {
-      const client = useSupabaseClient();
+      const supabase = useSupabaseClient();
       const user = useSupabaseUser();
-
       if (!user.value) {
         return;
-      }
-
-      const { data, error } = await client
-        .from("profiles")
+      };
+      const { data, error } = await supabase
+        .from("profile")
         .select("*")
         .eq("uuid", user.value.id);
-
       if (error) {
         console.error("Error fetching profile", error);
         return;
       }
-
       this.profile = data[0];
     },
+    //Updates the profile table on the currently logged in user.  Accepts an object.
     async updateProfile(userData) {
-      const client = useSupabaseClient();
+      const supabase = useSupabaseClient();
       const user = useSupabaseUser();
       if (!user.value) {
         return;
-      }
-
-      const { error } = await client 
-      .from('profiles')
-      .update(userData)
-      .eq('uuid', user.value.id)
-
+      };
+      const { error } = await supabase 
+        .from('profile')
+        .update(userData)
+        .eq('uuid', user.value.id);
       if (error) {
         console.error("Error updating data", error);
         return;
-      }
+      };
     },
+    //Clears the current profile. Called when the user logs out.
     async clearProfile() {
       this.profile = null;
     },

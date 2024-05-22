@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ScNavigation />
-    <ScMobileNav />
+    <NavDesktop />
+    <NavMobile />
     <NuxtPage />
   </div>
 </template>

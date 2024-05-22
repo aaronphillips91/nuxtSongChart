@@ -8,42 +8,49 @@ export const useAuthStore = defineStore({
   }),
 
   actions: {
-    async signUp(email, password) {
-      const client = useSupabaseClient()
-      const { data, error } = await client.auth.signUp({
-        email: email,
-        password: password
+    //Signs the user up with an account using Supabase Auth. Also creates a profile and sends the user to /profile/setup.
+    async signUp(credentials) {
+      const supabase = useSupabaseClient();
+      const profileStore = useProfileStore();
+      const { data, error } = await supabase.auth.signUp({
+        email: credentials.email,
+        password: credentials.password
       })
       if (error) {
-        console.error('Error: ', error.message)
+        console.error('Error: ', error.message);
       } else {
-        this.user = data.user
-        const profileStore = useProfileStore();
+        this.user = data.user;
         await profileStore.createProfile(data.user);
-        navigateTo('/profile')
+        navigateTo('/profile/setup');
       }
     },
-    async signIn(email, password) {
-      const client = useSupabaseClient()
-      const { data, error } = await client.auth.signInWithPassword({
-        email: email,
-        password: password
+    //Signs the user in with their login credentials using Supabase Auth. Sends the user to /songs.
+    async signIn(credentials) {
+      const supabase = useSupabaseClient();
+      const profileStore = useProfileStore();
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: credentials.email,
+        password: credentials.password
       })
       if (error) {
-        console.error('Error: ', error.message)
+        console.error('Error: ', error.message);
       } else {
-        this.user = data.user
-        navigateTo('/profile')
+        this.user = data.user;
+        await profileStore.getProfile(data.user);
+        navigateTo('/songs');
       }
     },
+    //Signs the current user out using Supabase Auth. Sends the user to /login.
     async signOut() {
-      const client = useSupabaseClient()
-      const { error } = await client.auth.signOut()
+      const supabase = useSupabaseClient();
+      const profileStore = useProfileStore();
+      const { error } = await supabase.auth.signOut();
       if (error) {
-        console.error('Error: ', error.message)
+        console.error('Error: ', error.message);
       } else {
-        this.user = null
-        navigateTo('/login')
+        this.user = null;
+        profileStore.clearProfile();
+        navigateTo('/login');
       }
     }
   },
