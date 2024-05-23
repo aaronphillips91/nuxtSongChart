@@ -26,6 +26,7 @@ export const useAuthStore = defineStore({
     },
     //Signs the user in with their login credentials using Supabase Auth. Sends the user to /songs.
     async signIn(credentials) {
+      console.log(credentials)
       const supabase = useSupabaseClient();
       const profileStore = useProfileStore();
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -36,8 +37,12 @@ export const useAuthStore = defineStore({
         console.error('Error: ', error.message);
       } else {
         this.user = data.user;
-        await profileStore.getProfile(data.user);
-        navigateTo('/songs');
+        await profileStore.getProfile();
+        if ( profileStore.profile.setup === true) {
+          navigateTo('/songs');
+        } else {
+          navigateTo('/profile/setup');
+        }
       }
     },
     //Signs the current user out using Supabase Auth. Sends the user to /login.

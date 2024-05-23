@@ -1,8 +1,8 @@
 <template>
-  <div class="h-dvh">
+  <div class="min-h-dvh">
     <NavDesktop />
     <NavMobile />
-    <NuxtPage class="h-[calc(100dvh-96px)]" />
+    <NuxtPage class="min-h-[calc(100dvh-96px)]" />
   </div>
 </template>
 
