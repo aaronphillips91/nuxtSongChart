@@ -26,7 +26,6 @@ export const useAuthStore = defineStore({
     },
     //Signs the user in with their login credentials using Supabase Auth. Sends the user to /songs.
     async signIn(credentials) {
-      console.log(credentials)
       const supabase = useSupabaseClient();
       const profileStore = useProfileStore();
       const { data, error } = await supabase.auth.signInWithPassword({

@@ -5,11 +5,11 @@
       <p class="text-xs">Welcome to SongChart! Let's get your profile set up so you can start exploring and sharing your musical journey. Please add your name and a profile picture to personalize your experience. If you'd like, you can also provide a contact phone number for seamless support and updates. Finally, choose a subscription tier that best suits your needs and unlock the full potential of SongChart. We're excited to have you on board and can't wait to see where your music takes you!</p>
     </div>
     <UDivider/>
-    <div class="flex items-center gap-4">
-      <img v-if="!profileComputed.pic" class="rounded-lg size-24" src="https://i.pravatar.cc/300" alt="">
-      <img v-if="profileComputed.pic" class="rounded-lg size-24" :src="profile.pic" alt="">
+    <div class="relative flex items-center gap-4">
+      <UIcon v-if="previewURL" @click="cancelImage" class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer" name="i-heroicons-x-circle-solid"/>
+      <img :src="computedImageSrc" class="rounded-lg size-24" src="https://i.pravatar.cc/300" alt="">
       <div class="flex flex-col gap-2">
-        <UInput type="file"/>
+        <UInput @change="previewImage" type="file"/>
         <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
       </div>
     </div>
@@ -43,7 +43,7 @@
     
     <div class="flex gap-4 mb-24 ml-auto">
       <UButton variant="ghost" label="Finish Later"/>
-      <UButton label="Finish Profile Setup"/>
+      <UButton @click="updateProfile" label="Finish Profile Setup"/>
     </div>
   </div>
 </template>
@@ -55,6 +55,9 @@ definePageMeta({
 
 const profileStore = useProfileStore();
 const profile = ref({ pic: '' });
+
+const previewURL = ref(null);
+const selectedFile = ref(null);
 
 const name = ref(profile.name);
 const username = ref(profile.username);
@@ -69,6 +72,31 @@ onMounted(async () => {
     console.error('Error fetching profile:', error);
   }
 });
+
+const previewImage = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    previewURL.value = URL.createObjectURL(file);
+  }
+};
+
+const cancelImage = () => {
+  selectedFile.value = null;
+  previewURL.value = null
+}
+
+const computedImageSrc = computed(() => {
+  if (previewURL.value) {
+    return previewURL.value;
+  } else if (profileStore.profile.pic) {
+    return profileStore.profile.pic;
+  } else {
+    return 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg';
+  }
+});
+
+console.log(computedImageSrc)
 
 const profileComputed = computed(() => profile.value);
 
