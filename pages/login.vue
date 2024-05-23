@@ -1,19 +1,6 @@
 <template>
-
+  <FormLogin/>
 </template>
 
 <script setup>
-  const email = ref("");
-  const password = ref("");
-  const loading = ref(false);
-
-  async function login() {
-    const authStore = useAuthStore();
-    const credentials = {
-      email: email.value,
-      password: password.value
-    }
-    loading.value = true;
-    await authStore.signIn(credentials)
-  }
 </script>
