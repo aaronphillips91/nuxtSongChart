@@ -3,6 +3,9 @@ export default defineAppConfig({
     primary: "yellow",
     gray: "zinc",
     danger: "red",
-    warning: "amber"
+    warning: "amber",
+    notifications: {
+      position: 'top-0 right-0'
+    }
   },
 });

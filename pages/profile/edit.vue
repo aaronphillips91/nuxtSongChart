@@ -1,8 +1,7 @@
 <template>
   <div class="flex flex-col gap-4 px-4 my-4 7xl:mx-auto scPage">
     <div class="flex flex-col gap-2">
-      <h4>Profile Setup</h4>
-      <p class="text-xs">Welcome to SongChart! Let's get your profile set up so you can start exploring and sharing your musical journey. Please add your name and a profile picture to personalize your experience. If you'd like, you can also provide a contact phone number for seamless support and updates. Finally, choose a subscription tier that best suits your needs and unlock the full potential of SongChart. We're excited to have you on board and can't wait to see where your music takes you!</p>
+      <h4>Edit Profile</h4>
     </div>
     <UDivider/>
     <div>
@@ -42,20 +41,24 @@
       <div class="text-xs">We're committed to delivering the best experience possible to musicians at any budget!  That's why we offer a free plan as well as options to expand your SongChart experience.</div>
     </div>
     <div class="flex gap-4">
-      <div v-for="tier in tiers" class="flex flex-col w-full p-4 border rounded-lg border-zinc-700 scBackground hover:bg-zinc-800">
-        <h4 class="text-center">{{ tier.name }}</h4>
-        <div class="mb-4 font-black text-center">{{ tier.price }}</div>
+      <div v-for="t in tiers" 
+      class="flex flex-col w-full p-4 border rounded-lg border-zinc-700 scBackground hover:bg-zinc-800"
+      :class="{'!border-primary-500' : t.name == tier}">
+        <h4 class="text-center">{{ t.name }}</h4>
+        <div class="mb-4 font-black text-center">{{ t.price }}</div>
         <div class="mb-4">
-          <div v-for="n in tier.points" :key="n" class="mb-2 text-xs">- {{ n }}</div>
+          <div v-for="n in t.points" :key="n" class="mb-2 text-xs">- {{ n }}</div>
         </div>
-        <UButton @click="setTier(tier.name)" block class="mt-auto">Select {{ tier.name }}</UButton>
+        <UButton @click="setTier(t.name)" block class="mt-auto" >
+          {{ t.name === profile.sub_tier ? 'Current Tier' : 'Select ' + t.name }}  
+        </UButton>
       </div>
     
     </div>
     
     <div class="flex gap-4 mb-24 ml-auto">
-      <UButton @click="setupLater" variant="ghost" label="Finish Later"/>
-      <UButton @click="setupProfile" label="Finish Profile Setup"/>
+      <UButton @click="cancelEdit" variant="ghost" label="Cancel"/>
+      <UButton @click="setupProfile" label="Save Changes"/>
     </div>
   </div>
 </template>
@@ -137,7 +140,7 @@ const setTier = (tierName) => {
   console.log(tier.value)
 }
 
-const setupLater = () => {
+const cancelEdit = () => {
   navigateTo('/profile')
 }
 
@@ -145,17 +148,20 @@ const tiers = [
   {
     name: "SongChart Free",
     price: "$0/mo",
-    points: ["Free forever", "5 Songs", "1 Playlist"]
+    points: ["Free forever", "5 Songs", "1 Playlist"],
+    active: false
   },
   {
     name: "SongChart Plus",
     price: "$3/mo",
-    points: ["Unlimited Songs and Playlists", "Share and Print Songs", "Access to Public Songs"]
+    points: ["Unlimited Songs and Playlists", "Share and Print Songs", "Access to Public Songs"],
+    active: false
   },
   {
     name: "SongChart Pro",
     price: "$5/mo",
-    points: ["Everything SongChart has to offer", "Access to ShowMode", "Songwriting collaboration", "Access to beta features"]
+    points: ["Everything SongChart has to offer", "Access to ShowMode", "Songwriting collaboration", "Access to beta features"],
+    active: false
   },
 ];
 </script>

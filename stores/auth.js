@@ -10,6 +10,7 @@ export const useAuthStore = defineStore({
   actions: {
     //Signs the user up with an account using Supabase Auth. Also creates a profile and sends the user to /profile/setup.
     async signUp(credentials) {
+      const toast = useToast()
       const supabase = useSupabaseClient();
       const profileStore = useProfileStore();
       const { data, error } = await supabase.auth.signUp({
@@ -18,6 +19,7 @@ export const useAuthStore = defineStore({
       })
       if (error) {
         console.error('Error: ', error.message);
+        toast.add({title: error.message})
       } else {
         this.user = data.user;
         await profileStore.createProfile(data.user);
@@ -26,6 +28,7 @@ export const useAuthStore = defineStore({
     },
     //Signs the user in with their login credentials using Supabase Auth. Sends the user to /songs.
     async signIn(credentials) {
+      const toast = useToast()
       const supabase = useSupabaseClient();
       const profileStore = useProfileStore();
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -34,6 +37,7 @@ export const useAuthStore = defineStore({
       })
       if (error) {
         console.error('Error: ', error.message);
+        toast.add({title: error.message, color: 'red'})
       } else {
         this.user = data.user;
         await profileStore.getProfile();

@@ -29,5 +29,6 @@
     }
     loading.value = true;
     await authStore.signIn(credentials)
+    loading.value = false;
   }
 </script>

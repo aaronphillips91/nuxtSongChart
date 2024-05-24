@@ -3,6 +3,7 @@
     <NavDesktop />
     <NavMobile />
     <NuxtPage class="min-h-[calc(100dvh-96px)]" />
+    <UNotifications/>
   </div>
 </template>
 
