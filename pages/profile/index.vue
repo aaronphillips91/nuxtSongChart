@@ -10,7 +10,7 @@
           </div>
         </div>
         <h4>Membership: {{ profile.sub_tier }}</h4>
-        <UButton variant="ghost"  class="self-start">Edit Profile</UButton>
+        <UButton variant="ghost" @click="editProfile" class="self-start">Edit Profile</UButton>
       </div>
       <div class="flex gap-4 mx-auto">
         <div class="px-2 text-xs bg-red-800 border border-red-600 rounded-lg">Songs: 24</div>
@@ -65,7 +65,6 @@
   </div>
 
     <button class="mx-auto bg-red-500" @click="logout">Logout</button>
-        <button @click="editProfile">Edit Profile</button>
 </template>
 
 <script setup>
