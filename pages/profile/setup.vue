@@ -19,21 +19,21 @@
     <div class="flex w-full gap-4">
       <div class="w-full">
         <label for="name">Full Name</label>
-        <UInput v-model="profileComputed.name" placeholder="Full Name" icon="i-heroicons-user-solid" color="white" variant="outline"/>
+        <UInput v-model="name" placeholder="Full Name" icon="i-heroicons-user-solid" color="white" variant="outline"/>
       </div>
       <div class="w-full">
         <label for="username">Username</label>
-        <UInput v-model="profileComputed.username" placeholder="Username" icon="i-heroicons-at-symbol-solid" color="white" variant="outline"/>
+        <UInput v-model="username" placeholder="Username" icon="i-heroicons-at-symbol-solid" color="white" variant="outline"/>
       </div>
     </div>
     <div class="flex w-full gap-4">
       <div class="w-full">
         <label for="email">Email</label>
-        <UInput v-model="profileComputed.email" placeholder="email" icon="i-heroicons-envelope-solid" color="white" variant="outline"/>
+        <UInput v-model="email" placeholder="email" icon="i-heroicons-envelope-solid" color="white" variant="outline"/>
       </div>
       <div class="w-full">
         <label for="phone">Phone (Optional)</label>
-        <UInput v-model="profileComputed.phone" placeholder="Phone" icon="i-heroicons-phone-solid" color="white" variant="outline"/>
+        <UInput v-model="phone" placeholder="Phone" icon="i-heroicons-phone-solid" color="white" variant="outline"/>
       </div>
     </div>
     <UDivider/>
@@ -72,16 +72,22 @@ const previewURL = ref(null);
 const selectedFile = ref(null);
 const inputFile = ref(null);
 
-const name = ref(profile.name);
-const username = ref(profile.username);
-const email = ref(profile.email);
-const phone = ref(profile.phone);
-const tier = ref(profile.tier)
+const name = ref('');
+const username = ref('');
+const email = ref('');
+const phone = ref('');
+const tier = ref('');
 
 onMounted(async () => {
   try {
     await profileStore.getProfile();
-    profile.value = profileStore.profile;
+    const fetchedProfile = profileStore.profile;
+    // Update the refs with the fetched profile data
+    name.value = fetchedProfile ? fetchedProfile.name : '';
+    username.value = fetchedProfile ? fetchedProfile.username : '';
+    email.value = fetchedProfile ? fetchedProfile.email : '';
+    phone.value = fetchedProfile ? fetchedProfile.phone : '';
+    tier.value = fetchedProfile ? fetchedProfile.tier : '';
   } catch (error) {
     console.error('Error fetching profile:', error);
   }
@@ -103,23 +109,23 @@ const cancelImage = () => {
 
 async function setupProfile() {
   if (selectedFile.value) {
-    await profileStore.updateProfilePic(selectedFile.value)
+    await profileStore.updateProfilePic(selectedFile.value);
   }
   const profileData = {
-    name: profileComputed.value.name,
-    username: profileComputed.value.username,
-    email: profileComputed.value.email,
-    phone: profileComputed.value.phone,
+    name: name.value,
+    username: username.value,
+    email: email.value,
+    phone: phone.value,
     sub_tier: tier.value,
   };
-  await profileStore.updateProfile(profileData)
-  navigateTo('/profile')
+  await profileStore.updateProfile(profileData);
+  navigateTo('/profile');
 }
 
 const computedImageSrc = computed(() => {
   if (previewURL.value) {
     return previewURL.value;
-  } else if (profileStore.profile.pic) {
+  } else if (profileStore.profile && profileStore.profile.pic) {
     return profileStore.profile.pic;
   } else {
     return 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg';

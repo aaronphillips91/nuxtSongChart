@@ -37,7 +37,7 @@ export const useAuthStore = defineStore({
       } else {
         this.user = data.user;
         await profileStore.getProfile();
-        if ( profileStore.profile.setup === true) {
+        if ( profileStore.profile.setup_complete === true) {
           navigateTo('/songs');
         } else {
           navigateTo('/profile/setup');

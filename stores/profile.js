@@ -39,17 +39,49 @@ export const useProfileStore = defineStore({
     //Updates the profile table on the currently logged in user.  Accepts an object.
     async updateProfile(userData) {
       const supabase = useSupabaseClient();
+      
       if (!this.profile) {
+        console.warn("Profile not found. Cannot update.");
         return;
-      };
-      const { error } = await supabase 
-        .from('profile')
-        .update(userData)
-        .eq('uuid', this.profile.uuid);
-      if (error) {
-        console.error("Error updating data", error);
+      }
+      
+      const { uuid } = this.profile;
+      
+      try {
+        const { error } = await supabase
+          .from('profile')
+          .update(userData)
+          .eq('uuid', uuid);
+          
+        if (error) {
+          console.error("Error updating profile data:", error.message);
+          return;
+        }
+        
+        console.log("Profile updated successfully.");
+        this.setupCompleteCheck();
+      } catch (err) {
+        console.error("Unexpected error updating profile:", err);
+      }
+    },
+    async setupCompleteCheck() {
+      this.getProfile();
+      if (this.profile.setup_complete == true) {
         return;
-      };
+      }
+      if (this.profile.name == null) {
+        return;
+      } 
+      if (this.profile.username == null) {
+        return;
+      }
+      if (this.profile.email == null) {
+        return;
+      } 
+      if (this.profile.pic == null) {
+        return;
+      }
+      this.updateProfile({setup_complete: true})
     },
     //Deletes any previous profile pics, then uploads the new one and updates the profile table with the URL of the new photo.
     async updateProfilePic(file) {
