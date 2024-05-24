@@ -28,24 +28,24 @@ export const useProfileStore = defineStore({
       const { data, error } = await supabase
         .from("profile")
         .select("*")
-        .eq("uuid", user.value.id);
+        .eq("uuid", user.value.id)
+        .single();
       if (error) {
         console.error("Error fetching profile", error);
         return;
       }
-      this.profile = data[0];
+      this.profile = data;
     },
     //Updates the profile table on the currently logged in user.  Accepts an object.
     async updateProfile(userData) {
       const supabase = useSupabaseClient();
-      const user = useSupabaseUser();
-      if (!user.value) {
+      if (!this.profile) {
         return;
       };
       const { error } = await supabase 
         .from('profile')
         .update(userData)
-        .eq('uuid', user.value.id);
+        .eq('uuid', this.profile.uuid);
       if (error) {
         console.error("Error updating data", error);
         return;
@@ -53,18 +53,16 @@ export const useProfileStore = defineStore({
     },
     //Deletes any previous profile pics, then uploads the new one and updates the profile table with the URL of the new photo.
     async updateProfilePic(file) {
-      const user = useSupabaseUser();
       const supabase = useSupabaseClient();
-      if (!user) {
+      if (!this.profile) {
         throw new Error('No user logged in');
       }
 
-      const folderPath = `profile_pics/${user.id}`;
-
+      const folderPath = `${this.profile.uuid}`;
       const { data: listData, error: listError } = await supabase
       .storage
       .from('profile_pics')
-      .list(user.id);
+      .list(this.profile.uuid);
 
       if (listError && listError.message !== 'The resource was not found') {
         throw listError;
@@ -75,21 +73,18 @@ export const useProfileStore = defineStore({
           await supabase
           .storage
           .from('profile_pics')
-          .remove([`${user.id}/${file.name}`]);
+          .remove([`${this.profile.uuid}/${file.name}`]);
         }
       }
-
       const fileName = `${Date.now()}_${file.name}`;
       const { data: uploadData, error: uploadError } = await supabase
         .storage
         .from('profile_pics')
         .upload(`${folderPath}/${fileName}`, file);
-
       if (uploadError) {
         throw uploadError;
       }
-
-      const { publicURL, error: urlError } = supabase
+      const { data: publicURL, error: urlError } = await supabase
         .storage
         .from('profile_pics')
         .getPublicUrl(`${folderPath}/${fileName}`);
@@ -97,11 +92,10 @@ export const useProfileStore = defineStore({
       if (urlError) {
         throw urlError;
       }
-
       const { data: updateData, error: updateError } = await supabase
         .from('profile')
-        .update({ pic: publicURL })
-        .eq('uuid', user.id)
+        .update({ pic: publicURL.publicUrl })
+        .eq('uuid', this.profile.uuid);
     },
     //Clears the current profile. Called when the user logs out.
     async clearProfile() {

@@ -54,8 +54,8 @@
     </div>
     
     <div class="flex gap-4 mb-24 ml-auto">
-      <UButton variant="ghost" label="Finish Later"/>
-      <UButton @click="updateProfile" label="Finish Profile Setup"/>
+      <UButton @click="getURL" variant="ghost" label="Finish Later"/>
+      <UButton @click="setupProfile" label="Finish Profile Setup"/>
     </div>
   </div>
 </template>
@@ -66,7 +66,7 @@ definePageMeta({
 });
 
 const profileStore = useProfileStore();
-const profile = ref({ pic: '' });
+const profile = ref(profileStore.profile);
 
 const previewURL = ref(null);
 const selectedFile = ref(null);
@@ -106,14 +106,14 @@ async function setupProfile() {
     await profileStore.updateProfilePic(selectedFile.value)
   }
   const profileData = {
-    name: name.value,
-    username: username.value,
-    email: email.value,
-    phone: phone.value,
-    tier: tier.value,
+    name: profileComputed.value.name,
+    username: profileComputed.value.username,
+    email: profileComputed.value.email,
+    phone: profileComputed.value.phone,
+    sub_tier: tier.value,
   };
-  await profileStore.updateProfile()
-
+  await profileStore.updateProfile(profileData)
+  navigateTo('/profile')
 }
 
 const computedImageSrc = computed(() => {
