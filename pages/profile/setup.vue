@@ -5,12 +5,15 @@
       <p class="text-xs">Welcome to SongChart! Let's get your profile set up so you can start exploring and sharing your musical journey. Please add your name and a profile picture to personalize your experience. If you'd like, you can also provide a contact phone number for seamless support and updates. Finally, choose a subscription tier that best suits your needs and unlock the full potential of SongChart. We're excited to have you on board and can't wait to see where your music takes you!</p>
     </div>
     <UDivider/>
-    <div class="relative flex items-center gap-4">
-      <UIcon v-if="previewURL" @click="cancelImage" class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer" name="i-heroicons-x-circle-solid"/>
-      <img :src="computedImageSrc" class="rounded-lg size-24" src="https://i.pravatar.cc/300" alt="">
-      <div class="flex flex-col gap-2">
-        <UInput v-model="inputFile" @change="previewImage" type="file"/>
-        <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
+    <div>
+      <label for="profilePic">Profile Picture</label>
+      <div class="relative flex items-center gap-4">
+        <UIcon v-if="previewURL" @click="cancelImage" class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer" name="i-heroicons-x-circle-solid"/>
+        <img :src="computedImageSrc" class="rounded-lg size-24">
+        <div class="flex flex-col gap-2">
+          <UInput v-model="inputFile" @change="previewImage" type="file"/>
+          <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
+        </div>
       </div>
     </div>
     <div class="flex w-full gap-4">
@@ -33,10 +36,19 @@
         <UInput v-model="profileComputed.phone" placeholder="Phone" icon="i-heroicons-phone-solid" color="white" variant="outline"/>
       </div>
     </div>
+    <UDivider/>
+    <div class="flex flex-col gap-2">
+      <h4>Choose your SongChart Tier</h4>
+      <div class="text-xs">We're committed to delivering the best experience possible to musicians at any budget!  That's why we offer a free plan as well as options to expand your SongChart experience.</div>
+    </div>
     <div class="flex gap-4">
-      <div v-for="tier in tiers" class="w-full p-4 border rounded-lg border-zinc-700 scBackground hover:bg-zinc-800">
-        <div>{{ tier.name }}</div>
-        <div>{{ tier.price }}</div>
+      <div v-for="tier in tiers" class="flex flex-col w-full p-4 border rounded-lg border-zinc-700 scBackground hover:bg-zinc-800">
+        <h4 class="text-center">{{ tier.name }}</h4>
+        <div class="mb-4 font-black text-center">{{ tier.price }}</div>
+        <div class="mb-4">
+          <div v-for="n in tier.points" :key="n" class="mb-2 text-xs">- {{ n }}</div>
+        </div>
+        <UButton @click="setTier(tier.name)" block class="mt-auto">Select {{ tier.name }}</UButton>
       </div>
     
     </div>
@@ -64,6 +76,7 @@ const name = ref(profile.name);
 const username = ref(profile.username);
 const email = ref(profile.email);
 const phone = ref(profile.phone);
+const tier = ref(profile.tier)
 
 onMounted(async () => {
   try {
@@ -88,6 +101,21 @@ const cancelImage = () => {
   inputFile.value = null;
 }
 
+async function setupProfile() {
+  if (selectedFile.value) {
+    await profileStore.updateProfilePic(selectedFile.value)
+  }
+  const profileData = {
+    name: name.value,
+    username: username.value,
+    email: email.value,
+    phone: phone.value,
+    tier: tier.value,
+  };
+  await profileStore.updateProfile()
+
+}
+
 const computedImageSrc = computed(() => {
   if (previewURL.value) {
     return previewURL.value;
@@ -98,22 +126,28 @@ const computedImageSrc = computed(() => {
   }
 });
 
-console.log(computedImageSrc)
+const setTier = (tierName) => {
+  tier.value = tierName;
+  console.log(tier.value)
+}
 
 const profileComputed = computed(() => profile.value);
 
 const tiers = [
   {
     name: "SongChart Free",
-    price: "Free"
+    price: "$0/mo",
+    points: ["Free forever", "5 Songs", "1 Playlist"]
   },
   {
-    name: "SongChart",
-    price: "$2"
+    name: "SongChart Plus",
+    price: "$3/mo",
+    points: ["Unlimited Songs and Playlists", "Share and Print Songs", "Access to Public Songs"]
   },
   {
     name: "SongChart Pro",
-    price: "$5"
+    price: "$5/mo",
+    points: ["Everything SongChart has to offer", "Access to ShowMode", "Songwriting collaboration", "Access to beta features"]
   },
-]
+];
 </script>

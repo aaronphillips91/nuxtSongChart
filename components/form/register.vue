@@ -1,6 +1,7 @@
 <template>
 <div class="flex flex-col items-center justify-center w-full max-w-5xl gap-4 mx-auto">
-      <img class="w-1/3 max-w-4xl " src="/static/logos/SongChart Logo.svg" alt="">
+      
+  <img class="w-1/3 max-w-4xl " src="/static/logos/SongChart Logo.svg" alt="">
 
       <div>
         <label for="email">Email</label>
