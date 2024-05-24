@@ -21,7 +21,6 @@
   const loading = ref(false);
 
   async function register() {
-    console.log('registering user')
     const authStore = useAuthStore();
     const credentials = {
       email: email.value,

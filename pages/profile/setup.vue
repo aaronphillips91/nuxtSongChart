@@ -9,7 +9,7 @@
       <UIcon v-if="previewURL" @click="cancelImage" class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer" name="i-heroicons-x-circle-solid"/>
       <img :src="computedImageSrc" class="rounded-lg size-24" src="https://i.pravatar.cc/300" alt="">
       <div class="flex flex-col gap-2">
-        <UInput @change="previewImage" type="file"/>
+        <UInput v-model="inputFile" @change="previewImage" type="file"/>
         <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
       </div>
     </div>
@@ -58,6 +58,7 @@ const profile = ref({ pic: '' });
 
 const previewURL = ref(null);
 const selectedFile = ref(null);
+const inputFile = ref(null);
 
 const name = ref(profile.name);
 const username = ref(profile.username);
@@ -83,7 +84,8 @@ const previewImage = (event) => {
 
 const cancelImage = () => {
   selectedFile.value = null;
-  previewURL.value = null
+  previewURL.value = null;
+  inputFile.value = null;
 }
 
 const computedImageSrc = computed(() => {
