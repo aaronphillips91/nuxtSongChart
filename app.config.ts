@@ -5,7 +5,7 @@ export default defineAppConfig({
     danger: "red",
     warning: "amber",
     notifications: {
-      position: 'top-0 right-0'
+      position: 'top-0 bottom-auto'
     }
   },
 });
