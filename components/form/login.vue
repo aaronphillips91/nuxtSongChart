@@ -9,7 +9,7 @@
       </div>
       <div>
         <label for="password">Password</label>
-        <UInput v-model="password" placeholder="password" icon="i-heroicons-lock-closed-solid" color="white" variant="outline"/>
+        <UInput v-model="password" type="password" placeholder="password" icon="i-heroicons-lock-closed-solid" color="white" variant="outline"/>
       </div>
       <UButton @click="login" :loading="loading" type="password" label="Login" />
       <div class="text-xs">Don't have an account? <ULink class="text-primary-500" to="/register">Register Here</ULink></div>
