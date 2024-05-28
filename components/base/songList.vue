@@ -2,7 +2,7 @@
   <div class="flex max-h-[calc(100dvh-138px)] overflow-scroll flex-col p-2 border rounded-lg scPage scBackground border-zinc-700">
     <div class="flex w-full gap-2">
       <UTabs class="w-full" :items="items" @change="onChange"></UTabs>
-      <UButton class="h-10" variant="outline" >Add Song</UButton>
+      <UButton @click="openModal" class="h-10" variant="outline" >Add Song</UButton>
     </div>
     <div v-if="activeTab === 'mySongs'">
       <div class="flex items-center gap-2 p-2 scBorder scRounded bg-white/5" v-for="song in mySongs" :key="song.title">
@@ -35,7 +35,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+const songStore = useSongStore();
+const openModal = () => {
+  songStore.openNewSongModal();
+}
 
 const items = [
   { slot: 'mySongs', label: 'My Songs' },

@@ -5,9 +5,19 @@ export const useSongStore = defineStore({
   id: 'SongStore',
   state: () => ({
     songs: [],
+    song: null,
+    newSongModal: false,
   }),
 
   actions: {
+    openNewSongModal() {
+      this.newSongModal = true;
+      console.log('modal open');
+    },
+    closeNewSongModal() {
+      this.newSongModal = false;
+      console.log('modal closed');
+    },
     //Creates a new song in the song table, then calls the getSongs() function to update the local songs array.
     async createSong(song) {
       const supabase = useSupabaseClient();
@@ -21,12 +31,12 @@ export const useSongStore = defineStore({
           tempo: song.tempo,
           public: song.public,
           original_key: song.key,
-          art_name: song.artname,
         })
       if ( error ) {
         console.error('Error: ', error.message);
       } else {
         this.getSongs();
+        this.closeNewSongModal();
       };
     },
     //Fetches the songs from the song table using the current user's uuid.
