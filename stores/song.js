@@ -21,7 +21,7 @@ export const useSongStore = defineStore({
     //Creates a new song in the song table, then calls the getSongs() function to update the local songs array.
     async createSong(song) {
       const supabase = useSupabaseClient();
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('song')
         .insert({
           title: song.title,
@@ -29,12 +29,14 @@ export const useSongStore = defineStore({
           album: song.album,
           art: song.art,
           tempo: song.tempo,
-          public: song.public,
-          original_key: song.key,
+          public: song.isPublic,
+          original_key: song.original_key,
         })
+        .select()
       if ( error ) {
         console.error('Error: ', error.message);
       } else {
+        console.log(data)
         this.getSongs();
         this.closeNewSongModal();
       };
@@ -43,18 +45,33 @@ export const useSongStore = defineStore({
     async getSongs() {
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
+    
       if (!user.value) {
+        console.error('No user is logged in');
         return;
       }
+    
       const { data, error } = await supabase
         .from('song')
         .select('*')
-        .eq('uuid', user.value.id)
-      if ( error ) {
-        console.error('Error: ', error.message);
+        .eq('creator_id', user.value.id);
+    
+      if (error) {
+        console.error('Error fetching songs: ', error.message);
       } else {
-        this.songs = data
-      };
+        if (data) {
+          console.log(data)
+          if (Array.isArray(data)) {
+            this.songs = data;
+          } else {
+            console.error('Fetched data is not an array:', data);
+            this.songs = [];
+          }
+        } else {
+          console.error('Fetched data is null or undefined:', data);
+          this.songs = [];
+        }
+      }
     },
     //Updates the song based on the accepted song object, then calls the getSongs() function to update the local songs array.
     async updateSong(song) {

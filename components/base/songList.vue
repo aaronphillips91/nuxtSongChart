@@ -5,7 +5,7 @@
       <UButton @click="openModal" class="h-10" variant="outline" >Add Song</UButton>
     </div>
     <div v-if="activeTab === 'mySongs'">
-      <div class="flex items-center gap-2 p-2 scBorder scRounded bg-white/5" v-for="song in mySongs" :key="song.title">
+      <div @click="goToSong(song.uuid)" class="flex items-center gap-2 p-2 scBorder scRounded bg-white/5" v-for="song in mySongs" :key="song.title">
         <img class="rounded size-24" :src="song.art" alt="">
         <div>
           <div>{{ song.title }}</div>
@@ -36,8 +36,18 @@
 
 <script setup>
 const songStore = useSongStore();
+const profileStore = useProfileStore();
+const profile = profileStore.profile;
 const openModal = () => {
   songStore.openNewSongModal();
+}
+onMounted(() => {
+  songStore.getSongs();
+});
+const songs = computed(() => songStore.songs)
+
+const goToSong = (songId) => {
+  navigateTo(`/songs/${songId}`)
 }
 
 const items = [
@@ -46,7 +56,34 @@ const items = [
   { slot: 'newReleases', label: 'New Releases' }
 ];
 
-const songs = [
+const activeTab = ref('mySongs');
+
+function onChange (index) {
+  const item = items[index]
+  activeTab.value = item.slot;
+}
+
+const mySongs = computed(() => songs.value.filter(song => song.creator_id === profile.uuid));
+const topSongs = computed(() => songs.value.filter(song => song.public));
+const newReleases = computed(() => {
+    // Get the current date
+    const now = new Date();
+    
+    // Calculate the date for two months ago
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(now.getMonth() - 2);
+    
+    return songs.value.filter(song => {
+        // Parse the song's creation date from timestamptz
+        const createdAt = new Date(song.created_at);
+        
+        // Check if the song was created within the last two months
+        return createdAt >= twoMonthsAgo && createdAt <= now;
+    });
+});
+
+
+const testsongs = [
   {
     title: 'Praise',
     artist: 'Elevation Worship',
@@ -192,34 +229,4 @@ const songs = [
     releaseYear: '2019'
   }
 ];
-
-const activeTab = ref('mySongs');
-
-function onChange (index) {
-  const item = items[index]
-  activeTab.value = item.slot;
-}
-
-const profile = {
-  uuid: '2c1162cd-102c-47dc-9a10-ea8d88df6c5a'
-};
-
-const mySongs = computed(() =>
-  songs.filter(song => song.creator === profile.uuid)
-);
-
-const topSongs = computed(() =>
-  songs.filter(song => song.public)
-);
-
-const newReleases = computed(() => {
-  const now = new Date();
-  const twoMonthsAgo = new Date();
-  twoMonthsAgo.setMonth(now.getMonth() - 2);
-
-  return songs.filter(song => {
-    const releaseDate = new Date(song.releaseYear, song.releaseMonth - 1);
-    return releaseDate >= twoMonthsAgo && releaseDate <= now;
-  });
-});
 </script>

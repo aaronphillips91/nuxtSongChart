@@ -29,14 +29,18 @@ const props = defineProps({
       return ['album', 'profile'].includes(value)
     }
   },
-})
+});
+
+const emit = defineEmits(['file-selected']);
 
 const previewImage = (event) => {
   const file = event.target.files[0];
   if (file) {
     selectedFile.value = file;
     previewURL.value = URL.createObjectURL(file);
-  }
+    console.log(file.name);
+    emit('file-selected', file);
+  };
 };
 
 const cancelImage = () => {
