@@ -73,6 +73,21 @@ export const useSongStore = defineStore({
         }
       }
     },
+    async getSong(songId) {
+      const supabase = useSupabaseClient();
+
+      const { data, error } = await supabase
+        .from('song')
+        .select('*')
+        .eq('uuid', songId)
+        .single()
+
+        if (error) {
+          console.error(error)
+        } else {
+          this.song = data;
+        }
+    },
     //Updates the song based on the accepted song object, then calls the getSongs() function to update the local songs array.
     async updateSong(song) {
       const supabase = useSupabaseClient();

@@ -1,9 +1,12 @@
 <template>
-  <h1>Welcome to the song</h1>
+  <HeaderSong :song="song"/>
 </template>
 
 <script setup>
 definePageMeta({
   middleware: "auth",
 });
+
+const songStore = useSongStore();
+const song = computed(() => songStore.song)
 </script>

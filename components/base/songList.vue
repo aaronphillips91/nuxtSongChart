@@ -5,8 +5,8 @@
       <UButton @click="openModal" class="h-10" variant="outline" >Add Song</UButton>
     </div>
     <div v-if="activeTab === 'mySongs'">
-      <div @click="goToSong(song.uuid)" class="flex items-center gap-2 p-2 scBorder scRounded bg-white/5" v-for="song in mySongs" :key="song.title">
-        <img class="rounded size-24" :src="song.art" alt="">
+      <div @click="goToSong(song.uuid)" class="flex items-center gap-2 p-2 transition-all duration-200 scBorder scRounded bg-white/5 hover:bg-white/10 hover:cursor-pointer" v-for="song in mySongs" :key="song.title">
+        <img class="rounded size-16" :src="song.art" alt="">
         <div>
           <div>{{ song.title }}</div>
           <div class="text-xs">{{ song.artist }}</div>
@@ -46,7 +46,8 @@ onMounted(() => {
 });
 const songs = computed(() => songStore.songs)
 
-const goToSong = (songId) => {
+const goToSong = async (songId) => {
+  await songStore.getSong(songId);
   navigateTo(`/songs/${songId}`)
 }
 
