@@ -1,7 +1,11 @@
 <template>
   <div>
     <label :for="label">{{ label }}</label>
-    <UInput :type="type" :id="label" :value="modelValue" @input="updateValue($event.target.value)"/>
+    <UInput
+      :type="type"
+      :id="label"
+      :value="modelValue"
+      @input="updateValue($event.target.value)" />
   </div>
 </template>
 
@@ -9,21 +13,21 @@
 const props = defineProps({
   label: {
     type: String,
-    required: true
+    required: true,
   },
   type: {
     type: String,
-    default: 'text',
+    default: "text",
   },
   modelValue: {
     type: [String, Number],
-    default: '',
-  }
-})
+    default: "",
+  },
+});
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(["update:modelValue"]);
 
 const updateValue = (value) => {
-  emit('update:modelValue', value);
+  emit("update:modelValue", value);
 };
 </script>

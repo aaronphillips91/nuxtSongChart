@@ -10,9 +10,7 @@
           alt="" />
       </NuxtLink>
       <!--Navigation Links-->
-      <div
-        v-if="user"
-        class="flex items-center gap-8 font-semibold">
+      <div v-if="user" class="flex items-center gap-8 font-semibold">
         <NuxtLink
           tag="button"
           v-for="link in links"
@@ -23,20 +21,14 @@
       </div>
     </div>
     <!--Auth Avatar-->
-    <NuxtLink
-      v-if="profile"
-      to="/profile"
-      class="size-12">
+    <NuxtLink v-if="profile" to="/profile" class="size-12">
       <UAvatar
         class="size-12 scBorder"
         :src="profile.pic"
         alt="Avatar"
         size="lg" />
     </NuxtLink>
-    <NuxtLink
-      v-else
-      to="/login"
-      class="size-12">
+    <NuxtLink v-else to="/login" class="size-12">
       <UAvatar
         class="size-12 scBorder"
         icon="i-heroicons-user-solid"
@@ -47,28 +39,28 @@
 </template>
 
 <script setup>
-  const user = useSupabaseUser();
-  const useProfile = useProfileStore();
-  const profile = computed(() => useProfile.profile);
+const user = useSupabaseUser();
+const useProfile = useProfileStore();
+const profile = computed(() => useProfile.profile);
 
-  const links = [
-    {
-      name: "Songs",
-      path: "/songs",
-    },
-    {
-      name: "Setlists",
-      path: "/setlists",
-    },
-    {
-      name: "ShowMode",
-      path: "/showmode",
-    },
-  ];
+const links = [
+  {
+    name: "Songs",
+    path: "/songs",
+  },
+  {
+    name: "Setlists",
+    path: "/setlists",
+  },
+  {
+    name: "ShowMode",
+    path: "/showmode",
+  },
+];
 </script>
 
 <style scoped>
-  .router-link-active {
-    @apply text-primary-600 dark:text-primary-500;
-  }
+.router-link-active {
+  @apply text-primary-600 dark:text-primary-500;
+}
 </style>

@@ -14,50 +14,48 @@
         v-if="link.icon"
         :name="link.icon"
         class="size-6 text-neutral-500" />
-      <span
-        v-if="link.name"
-        class="text-xs text-neutral-500"
-        >{{ link.name }}</span
-      >
+      <span v-if="link.name" class="text-xs text-neutral-500">{{
+        link.name
+      }}</span>
     </NuxtLink>
   </section>
 </template>
 
 <script setup>
-  const user = useSupabaseUser();
-  function handleRegister() {
-    navigateTo("/signup");
-  }
-  function handleLogin() {
-    navigateTo("/login");
-  }
+const user = useSupabaseUser();
+function handleRegister() {
+  navigateTo("/signup");
+}
+function handleLogin() {
+  navigateTo("/login");
+}
 
-  const links = [
-    {
-      name: "Songs",
-      icon: "i-heroicons-musical-note-16-solid",
-      path: "/songs",
-    },
-    {
-      name: "Setlists",
-      icon: "i-heroicons-queue-list-20-solid",
-      path: "/setlists",
-    },
-    {
-      logo: true,
-      path: "/",
-    },
-    {
-      name: "ShowMode",
-      icon: "i-heroicons-microphone-solid",
-      path: "/showmode",
-    },
-    {
-      name: "Profile",
-      icon: "i-heroicons-user-circle-solid",
-      path: "/profile",
-    },
-  ];
+const links = [
+  {
+    name: "Songs",
+    icon: "i-heroicons-musical-note-16-solid",
+    path: "/songs",
+  },
+  {
+    name: "Setlists",
+    icon: "i-heroicons-queue-list-20-solid",
+    path: "/setlists",
+  },
+  {
+    logo: true,
+    path: "/",
+  },
+  {
+    name: "ShowMode",
+    icon: "i-heroicons-microphone-solid",
+    path: "/showmode",
+  },
+  {
+    name: "Profile",
+    icon: "i-heroicons-user-circle-solid",
+    path: "/profile",
+  },
+];
 </script>
 
 <style></style>

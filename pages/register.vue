@@ -1,6 +1,5 @@
 <template>
-  <FormRegister/>
+  <FormRegister />
 </template>
 
-<script setup>
-</script>
+<script setup></script>

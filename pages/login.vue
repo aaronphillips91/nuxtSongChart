@@ -1,6 +1,5 @@
 <template>
-  <FormLogin/>
+  <FormLogin />
 </template>
 
-<script setup>
-</script>
+<script setup></script>

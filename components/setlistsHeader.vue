@@ -25,21 +25,21 @@
 </template>
 
 <script setup>
-  const items = [
-    {
-      slot: "upcoming",
-      label: "Upcoming",
-    },
-    {
-      slot: "past",
-      label: "Past",
-    },
-  ];
+const items = [
+  {
+    slot: "upcoming",
+    label: "Upcoming",
+  },
+  {
+    slot: "past",
+    label: "Past",
+  },
+];
 
-  const emits = defineEmits(["filterName"]);
+const emits = defineEmits(["filterName"]);
 
-  function handleClick(index) {
-    const item = items[index];
-    emits("filterName", item.slot);
-  }
+function handleClick(index) {
+  const item = items[index];
+  emits("filterName", item.slot);
+}
 </script>
