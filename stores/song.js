@@ -33,12 +33,14 @@ export const useSongStore = defineStore({
           original_key: song.original_key,
         })
         .select()
+        .single()
       if ( error ) {
         console.error('Error: ', error.message);
       } else {
         console.log(data)
         this.getSongs();
         this.closeNewSongModal();
+        navigateTo(`/songs/${data.uuid}`);
       };
     },
     //Fetches the songs from the song table using the current user's uuid.

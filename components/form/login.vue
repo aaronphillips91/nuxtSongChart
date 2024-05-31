@@ -5,7 +5,7 @@
       class="w-1/3 max-w-4xl"
       src="/static/logos/SongChart Logo.svg"
       alt="" />
-
+    <h4>Login</h4>
     <div>
       <label for="email">Email</label>
       <UInput

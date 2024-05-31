@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="flex items-center p-2 border rounded-lg gap-4 border-zinc-700 scBackground scPage mt-4 !h-fit">
+  <BaseCard class="items-center gap-2">
     <img class="rounded size-32" :src="song.art" alt="" />
     <div class="flex flex-col gap-2">
       <h4>{{ song.title }}</h4>
@@ -15,7 +14,7 @@
         <p>{{ stat.count }}</p>
       </div>
     </div>
-  </div>
+  </BaseCard>
 </template>
 
 <script setup>

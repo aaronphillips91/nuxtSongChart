@@ -1,6 +1,5 @@
 <template>
   <HeaderSong :song="song" />
-  <BaseSongActions />
   <div class="h-full"></div>
 </template>
 

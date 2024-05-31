@@ -1,4 +1,5 @@
 <template>
+  <setlistsHeader />
 </template>
 
 <script setup>

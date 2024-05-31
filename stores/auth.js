@@ -41,6 +41,7 @@ export const useAuthStore = defineStore({
       } else {
         this.user = data.user;
         await profileStore.getProfile();
+        toast.add({title: `Welcome back!`, color: 'primary'})
         if ( profileStore.profile.setup_complete === true) {
           navigateTo('/songs');
         } else {
