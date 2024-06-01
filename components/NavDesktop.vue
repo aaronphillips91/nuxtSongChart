@@ -12,12 +12,20 @@
       <!--Navigation Links-->
       <div v-if="user" class="flex items-center gap-8 font-semibold">
         <NuxtLink
-          tag="button"
           v-for="link in links"
+          :key="link.path"
           :to="link.path"
-          class="p-2 rounded-lg hover:text-primary-600"
-          >{{ link.name }}</NuxtLink
-        >
+          class="p-2 rounded-lg"
+          v-slot="{ isActive }">
+          <span
+            :class="
+              isActive
+                ? 'text-primary-600 dark:text-primary-500'
+                : 'hover:text-primary-600'
+            "
+            >{{ link.name }}</span
+          >
+        </NuxtLink>
       </div>
     </div>
     <!--Auth Avatar-->
@@ -106,9 +114,3 @@ const links = [
   },
 ];
 </script>
-
-<style scoped>
-.router-link-active {
-  @apply text-primary-600 dark:text-primary-500;
-}
-</style>
