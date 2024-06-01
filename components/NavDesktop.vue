@@ -10,7 +10,9 @@
           alt="" />
       </NuxtLink>
       <!--Navigation Links-->
-      <div v-if="user" class="flex items-center gap-8 font-semibold">
+      <div
+        v-if="user"
+        class="flex items-center gap-8 font-semibold">
         <NuxtLink
           v-for="link in links"
           :key="link.path"
@@ -29,8 +31,12 @@
       </div>
     </div>
     <!--Auth Avatar-->
-    <div class="flex items-center" v-if="profile">
-      <UDropdown :items="items" :popper="{ placement: 'bottom-end' }">
+    <div
+      class="flex items-center"
+      v-if="profile">
+      <UDropdown
+        :items="items"
+        :popper="{ placement: 'bottom-end' }">
         <UAvatar
           class="size-12 scBorder"
           :src="profile.pic"
@@ -38,9 +44,13 @@
           size="lg" />
       </UDropdown>
     </div>
-    <div class="flex items-center gap-2" v-else>
+    <div
+      class="flex items-center gap-2"
+      v-else>
       <NuxtLink to="/Register">
-        <UButton variant="ghost" label="Register" />
+        <UButton
+          variant="ghost"
+          label="Register" />
       </NuxtLink>
       <NuxtLink to="/login">
         <UButton label="Login" />
