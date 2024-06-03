@@ -6,7 +6,7 @@
       <NuxtLink to="/">
         <img
           class="h-12 invert-0 dark:invert"
-          src="../static/logos/SongChart Icon.svg"
+          src="/logos/Songchart Icon.svg"
           alt="" />
       </NuxtLink>
       <!--Navigation Links-->

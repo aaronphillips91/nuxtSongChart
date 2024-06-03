@@ -3,7 +3,7 @@
     class="flex flex-col items-center justify-center w-full max-w-5xl gap-4 mx-auto">
     <img
       class="w-1/3 max-w-4xl"
-      src="/static/logos/SongChart Logo.svg"
+      src="/logos/SongChart Logo.svg"
       alt="" />
     <h4>Register</h4>
     <div>
@@ -32,7 +32,11 @@
       label="Register" />
     <div class="text-xs">
       Already have an account?
-      <ULink class="text-primary-500" to="/login">Login Here</ULink>
+      <ULink
+        class="text-primary-500"
+        to="/login"
+        >Login Here</ULink
+      >
     </div>
   </div>
 </template>

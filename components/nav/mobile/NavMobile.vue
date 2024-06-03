@@ -8,15 +8,17 @@
       <img
         v-if="link.logo"
         class="opacity-50 size-10 dark:invert"
-        src="../static/logos/SongChart Icon.svg"
+        src="/logos/Songchart Icon.svg"
         alt="" />
       <UIcon
         v-if="link.icon"
         :name="link.icon"
         class="size-6 text-neutral-500" />
-      <span v-if="link.name" class="text-xs text-neutral-500">{{
-        link.name
-      }}</span>
+      <span
+        v-if="link.name"
+        class="text-xs text-neutral-500"
+        >{{ link.name }}</span
+      >
     </NuxtLink>
   </section>
 </template>

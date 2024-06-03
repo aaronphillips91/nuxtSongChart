@@ -3,14 +3,19 @@
     <div class="flex flex-col gap-4 p-4">
       <div class="flex items-center justify-between">
         <h4>Create Song</h4>
-        <img class="size-12" src="/static/icons/SongChartIcon.svg" alt="" />
+        <img
+          class="size-12"
+          src="//icons/SongChartIcon.svg"
+          alt="" />
       </div>
       <UDivider />
       <BasePicUploader
         @file-selected="handleFile"
         label="Album Art"
         intent="album" />
-      <BaseInput label="Song title" v-model="song.title.value" />
+      <BaseInput
+        label="Song title"
+        v-model="song.title.value" />
       <div class="flex w-full gap-4">
         <BaseInput
           class="w-full"
@@ -22,15 +27,23 @@
           v-model="song.artist.value" />
       </div>
       <div class="flex w-full gap-4">
-        <BaseInput class="w-full" label="Tempo" v-model="song.tempo.value" />
+        <BaseInput
+          class="w-full"
+          label="Tempo"
+          v-model="song.tempo.value" />
         <BaseInput
           class="w-full"
           label="Original key"
           v-model="song.original_key.value" />
       </div>
       <div class="flex gap-4 ml-auto">
-        <UButton @click="closeModal" variant="ghost" label="Cancel" />
-        <UButton @click="createSong" label="Create song" />
+        <UButton
+          @click="closeModal"
+          variant="ghost"
+          label="Cancel" />
+        <UButton
+          @click="createSong"
+          label="Create song" />
       </div>
     </div>
   </UModal>
