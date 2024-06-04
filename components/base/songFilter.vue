@@ -2,12 +2,20 @@
   <div
     class="flex max-h-[calc(100dvh-138px)] overflow-scroll flex-col p-2 border rounded-lg max-w-7xl mx-2 xl:mx-auto w-full scBackground border-zinc-700">
     <div class="flex w-full gap-2">
-      <UTabs class="w-full" :items="items" @change="onChange"></UTabs>
-      <UButton @click="openModal" class="h-10" variant="outline"
+      <UTabs
+        class="w-full"
+        :items
+        @change="onChange" />
+      <UButton
+        @click="openModal"
+        class="h-10"
+        variant="outline"
         >Add Song</UButton
       >
     </div>
-    <baseSongList :songs="filteredSongs" @clickSong="goToSong" />
+    <baseSongList
+      :songs="filteredSongs"
+      @clickSong="goToSong" />
   </div>
 </template>
 

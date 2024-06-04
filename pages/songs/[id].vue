@@ -1,6 +1,8 @@
 <template>
-  <HeaderSong :song="song" />
-  <div class="h-full"></div>
+  <div class="scPage">
+    <HeaderSong :song="song" />
+    <div class="h-full"></div>
+  </div>
 </template>
 
 <script setup>

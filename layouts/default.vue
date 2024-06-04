@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-dvh">
+  <div class="mx-2 min-h-dvh max-w-7xl xl:mx-auto">
     <NavDesktop />
     <NavMobile />
     <div>
