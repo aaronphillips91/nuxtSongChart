@@ -1,37 +1,31 @@
 <template>
-  <BaseCard class="flex flex-col items-center gap-2">
-    <div class="flex flex-row items-center justify-between w-full gap-2">
-      <img
-        class="rounded size-32"
-        :src="song.art"
-        alt="" />
-      <div class="flex flex-col gap-2">
-        <h4>{{ song.title }}</h4>
-        <p>{{ song.artist }}</p>
-      </div>
-      <div class="ml-auto mr-2">
-        <div
-          class="flex items-center justify-end gap-2 text-zinc-300"
-          v-for="stat in stats">
-          <UIcon :name="stat.icon" />
-          <p>{{ stat.name }}</p>
-          <p>{{ stat.count }}</p>
+  <div class="flex flex-col !w-full gap-2">
+    <BaseCard class="flex flex-col items-center gap-2">
+      <div class="flex flex-row items-center w-full gap-2">
+        <img
+          class="rounded size-32"
+          :src="song.art"
+          alt="" />
+        <div class="flex flex-col gap-2">
+          <h4>{{ song.title }}</h4>
+          <p>{{ song.artist }}</p>
         </div>
       </div>
-    </div>
-    <UTabs
-      class="w-full mb-0"
-      :items
-      @change="onChange"
-      :ui="{
-        wrapper: 'relateive space-y-0',
-        list: {
-          tab: {
-            size: 'text-xs',
+      <UTabs
+        class="w-full mb-0"
+        :items
+        @change="onChange"
+        :ui="{
+          wrapper: 'relateive space-y-0',
+          list: {
+            tab: {
+              size: 'text-xs',
+            },
           },
-        },
-      }" />
-  </BaseCard>
+        }" />
+    </BaseCard>
+    <BaseSectionEdit v-for="n in 4" />
+  </div>
 </template>
 
 <script setup>
