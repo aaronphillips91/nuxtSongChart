@@ -7,6 +7,7 @@
         <UButtonGroup>
           <UButton
             v-for="button in buttons"
+            size="sm"
             :key="button.icon"
             :icon="button.icon"
             :variant="button.variant" />
