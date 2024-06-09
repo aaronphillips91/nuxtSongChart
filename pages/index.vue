@@ -19,12 +19,11 @@
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 const [parent, tapes] = useDragAndDrop(
   [
-    "Depeche Mode",
-    "Duran Duran",
-    "Pet Shop Boys",
-    "Kraftwerk",
-    "Tears for Fears",
-    "Spandau Ballet",
+    "Aaron Phillips",
+    "Greyson Zittle",
+    "Joseph Nagel",
+    "Ryan Etchberger",
+    "Caleb Hanson",
   ],
   {
     draggable: (el) => {
