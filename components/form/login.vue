@@ -47,6 +47,7 @@ const password = ref("");
 const loading = ref(false);
 
 async function login() {
+  console.log("Logging in...");
   const authStore = useAuthStore();
   const credentials = {
     email: email.value,

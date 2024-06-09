@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@formkit/drag-and-drop": "^0.1.0",
     "@nuxt/ui": "^2.13.0",
     "@pinia/nuxt": "^0.5.1",
     "ipx": "^3.0.1",
@@ -24,6 +25,8 @@
     "@nuxtjs/supabase": "^1.1.6",
     "@nuxtjs/tailwindcss": "^6.11.3",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "@vueuse/core": "^10.10.0",
+    "@vueuse/nuxt": "^10.10.0",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.34",
     "tailwindcss": "^3.4.1"

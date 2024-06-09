@@ -3,7 +3,7 @@
     <div class="flex flex-col w-full gap-2">
       <!--Top Div-->
       <div class="flex items-center justify-between w-full">
-        <h4>Section Name</h4>
+        <h4>{{ section.name }}</h4>
         <UButtonGroup>
           <UButton
             v-for="button in buttons"
@@ -18,14 +18,16 @@
         <!--Left Div-->
         <div class="flex flex-col basis-full sm:basis-1/2 min-w-72">
           <UTextarea
+            v-model="section.content"
             autoresize
             rows="4"
             placeholder="Lyrics and Chords here" />
         </div>
         <!--Right Div-->
         <div class="flex flex-col gap-2 basis-full sm:basis-1/2 min-w-72">
-          <UInput placeholder="Section name" />
-          <UInput placeholder="Section notes" />
+          <UInput
+            v-model="section.name"
+            placeholder="Section name" />
         </div>
       </div>
     </div>
@@ -33,6 +35,11 @@
 </template>
 
 <script setup>
+const props = defineProps({
+  section: Object,
+  song: Object,
+});
+
 const buttons = [
   {
     icon: "i-heroicons-cloud-arrow-down-20-solid",

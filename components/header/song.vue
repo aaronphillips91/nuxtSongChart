@@ -24,7 +24,6 @@
           },
         }" />
     </BaseCard>
-    <BaseSectionEdit v-for="n in 4" />
   </div>
 </template>
 
@@ -45,27 +44,4 @@ function onChange(index) {
   const item = items[index];
   activeTab.value = item.slot;
 }
-
-const stats = [
-  {
-    icon: "i-heroicons-square-3-stack-3d-solid",
-    name: "Sections: ",
-    count: "7",
-  },
-  {
-    icon: "i-heroicons-rectangle-stack-solid",
-    name: "Arrangements: ",
-    count: "3",
-  },
-  {
-    icon: "i-heroicons-users-solid",
-    name: "Collaborators: ",
-    count: "2",
-  },
-  {
-    icon: "i-heroicons-queue-list-solid",
-    name: "Library Adds: ",
-    count: "29",
-  },
-];
 </script>

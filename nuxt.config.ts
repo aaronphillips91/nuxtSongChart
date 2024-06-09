@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxtjs/supabase",
     "@nuxt/image",
+    "@vueuse/nuxt",
   ],
   postcss: {
     plugins: {
