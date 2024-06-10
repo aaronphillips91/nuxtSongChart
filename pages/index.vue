@@ -11,11 +11,11 @@
       class="cursor-pointer select-none cassette">
       {{ tape }}
     </li>
-    <li id="no-drag">I am NOT draggable</li>
   </ul>
 </template>
 
 <script setup>
+import { animations } from "@formkit/drag-and-drop";
 import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 const [parent, tapes] = useDragAndDrop(
   [
@@ -25,10 +25,6 @@ const [parent, tapes] = useDragAndDrop(
     "Ryan Etchberger",
     "Caleb Hanson",
   ],
-  {
-    draggable: (el) => {
-      return el.id !== "no-drag";
-    },
-  }
+  { plugins: [animations()] }
 );
 </script>
