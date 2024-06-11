@@ -5,7 +5,7 @@
         <h4>Create Song</h4>
         <img
           class="size-12"
-          src="//icons/SongChartIcon.svg"
+          src="/icons/SongChartIcon.svg"
           alt="" />
       </div>
       <UDivider />
@@ -75,7 +75,7 @@ const handleFile = (file) => {
 
 const createSong = async () => {
   try {
-    const imageUrl = await uploadArt(artFile.value);
+    const imageUrl = await songStore.uploadArt(artFile.value);
     console.log("Art uploaded:", imageUrl);
     song.art.value = imageUrl;
     const newSong = {

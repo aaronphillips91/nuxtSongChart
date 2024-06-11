@@ -81,7 +81,8 @@ const filterSongs = (songList) => {
     (song) =>
       song.title.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
       song.artist.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-      song.album.toLowerCase().includes(props.searchQuery.toLowerCase())
+      song.album.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+      song.sections.toLowerCase().includes(props.searchQuery.toLowerCase())
   );
 };
 

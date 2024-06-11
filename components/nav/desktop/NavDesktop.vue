@@ -11,7 +11,7 @@
       </NuxtLink>
       <!--Navigation Links-->
       <div
-        v-if="user"
+        v-if="isLoggedIn"
         class="flex items-center gap-8 font-semibold">
         <NuxtLink
           v-for="link in links"
@@ -60,10 +60,15 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser();
 const useProfile = useProfileStore();
 const profile = computed(() => useProfile.profile);
 const authStore = useAuthStore();
+
+const isLoggedIn = ref(false);
+
+onBeforeMount(async () => {
+  isLoggedIn.value = authStore.setUser;
+});
 
 const items = [
   [

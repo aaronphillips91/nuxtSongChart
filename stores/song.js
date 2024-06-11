@@ -10,6 +10,7 @@ export const useSongStore = defineStore({
 
   actions: {
     openNewSongModal() {
+      this.song = null;
       this.newSongModal = true;
       console.log("modal open");
     },
@@ -61,7 +62,6 @@ export const useSongStore = defineStore({
         console.error("Error fetching songs: ", error.message);
       } else {
         if (data) {
-          console.log(data);
           if (Array.isArray(data)) {
             this.songs = data;
           } else {
@@ -114,6 +114,31 @@ export const useSongStore = defineStore({
       } else {
         this.getSongs();
       }
+    },
+    async addSection(newSection) {
+      if (this.song) {
+        this.song.sections = this.song.sections || [];
+        this.song.sections.push(newSection);
+        await this.updateSong(this.song);
+      }
+    },
+    async uploadArt(file) {
+      const supabase = useSupabaseClient();
+      const fileName = `${Date.now()}_${file.name}`;
+      const { data, error } = await supabase.storage
+        .from("album_art")
+        .upload(fileName, file);
+      if (error) {
+        throw error;
+      }
+      const { data: publicUrlData, error: urlError } = supabase.storage
+        .from("album_art")
+        .getPublicUrl(fileName);
+      if (urlError) {
+        throw urlError;
+      }
+      const publicURL = publicUrlData.publicUrl;
+      return publicURL;
     },
   },
 });

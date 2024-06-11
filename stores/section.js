@@ -33,7 +33,6 @@ export const useSectionStore = defineStore({
         console.error("Error: ", error.message);
       } else {
         if (data) {
-          console.log(data);
           if (Array.isArray(data)) {
             this.sections = data;
           } else {
