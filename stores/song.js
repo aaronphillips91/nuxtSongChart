@@ -122,6 +122,23 @@ export const useSongStore = defineStore({
         await this.updateSong(this.song);
       }
     },
+    async saveSection(section) {
+      if (this.song) {
+        const sectionIndex = this.song.sections.findIndex(
+          (s) => s.id === section.id
+        );
+        if (sectionIndex !== -1) {
+          this.song.sections[sectionIndex] = section;
+          await this.updateSong(this.song);
+        }
+      }
+    },
+    async deleteSection(sectionId) {
+      this.song.sections = this.song.sections.filter(
+        (section) => section.id !== sectionId
+      );
+      await this.updateSong(this.song);
+    },
     async uploadArt(file) {
       const supabase = useSupabaseClient();
       const fileName = `${Date.now()}_${file.name}`;

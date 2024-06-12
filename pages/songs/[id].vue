@@ -4,7 +4,8 @@
     <BaseSectionEdit
       v-for="(section, index) in song.sections"
       :key="index"
-      :section="section" />
+      :section
+      :song />
     <BaseSectionAdd @click="addSection" />
     <div class="h-full"></div>
   </div>
