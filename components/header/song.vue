@@ -32,6 +32,8 @@ const props = defineProps({
   song: Object,
 });
 
+const emit = defineEmits(["activeTab"]);
+
 const activeTab = ref("sections");
 
 const items = [
@@ -43,5 +45,6 @@ const items = [
 function onChange(index) {
   const item = items[index];
   activeTab.value = item.slot;
+  emit("activeTab", item.slot);
 }
 </script>

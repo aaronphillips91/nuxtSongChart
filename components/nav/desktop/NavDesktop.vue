@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="hidden sm:flex max-w-7xl mb-2 justify-between mx-auto rounded-b-lg !border-t-0 scBorder scBackground p-2">
+    class="hidden select-none sm:flex max-w-7xl mb-2 justify-between mx-auto rounded-b-lg !border-t-0 scBorder scBackground p-2">
     <div class="flex items-center gap-8">
       <!--SongChart Icon-->
       <NuxtLink to="/">
@@ -11,7 +11,7 @@
       </NuxtLink>
       <!--Navigation Links-->
       <div
-        v-if="isLoggedIn"
+        v-if="user"
         class="flex items-center gap-8 font-semibold">
         <NuxtLink
           v-for="link in links"
@@ -35,7 +35,7 @@
       class="flex items-center"
       v-if="profile">
       <UDropdown
-        :items="items"
+        :items
         :popper="{ placement: 'bottom-end' }">
         <UAvatar
           class="size-12 scBorder"
@@ -60,6 +60,7 @@
 </template>
 
 <script setup>
+const user = useSupabaseUser();
 const useProfile = useProfileStore();
 const profile = computed(() => useProfile.profile);
 const authStore = useAuthStore();
