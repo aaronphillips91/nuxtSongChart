@@ -3,6 +3,7 @@
     <HeaderSong
       :song
       @activeTab="handleActiveTab" />
+    <!-- Sections -->
     <div v-if="activeTab === 'sections'">
       <BaseSectionEdit
         v-for="(section, index) in song.sections"
@@ -11,7 +12,9 @@
         :song />
       <BaseSectionAdd @click="addSection" />
     </div>
+    <!-- Arrangements -->
     <div v-if="activeTab === 'arrangements'">Hello Arrangments</div>
+    <!-- Details -->
     <div v-if="activeTab === 'details'">
       <BaseDetails :song />
     </div>
