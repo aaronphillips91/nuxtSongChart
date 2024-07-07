@@ -28,9 +28,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  song: Object,
-});
+const { song } = defineProps(["song"]);
 
 const emit = defineEmits(["activeTab"]);
 

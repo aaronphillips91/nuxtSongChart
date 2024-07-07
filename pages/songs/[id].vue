@@ -13,7 +13,9 @@
       <BaseSectionAdd @click="addSection" />
     </div>
     <!-- Arrangements -->
-    <div v-if="activeTab === 'arrangements'">Hello Arrangments</div>
+    <div v-if="activeTab === 'arrangements'">
+      <ArrangementMain :song />
+    </div>
     <!-- Details -->
     <div v-if="activeTab === 'details'">
       <BaseDetails :song />
