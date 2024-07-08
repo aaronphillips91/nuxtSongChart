@@ -19,6 +19,7 @@
         to="/songs"
         label="Dashboard" />
     </div>
+    <div>Update</div>
     <div>
       <VueDraggable
         @start="onStart"
