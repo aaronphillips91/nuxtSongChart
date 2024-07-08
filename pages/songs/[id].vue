@@ -1,10 +1,14 @@
 <template>
-  <div class="flex flex-col gap-2 scPage">
+  <div
+    v-if="song"
+    class="flex flex-col gap-2 scPage">
     <HeaderSong
       :song
       @activeTab="handleActiveTab" />
     <!-- Sections -->
-    <div v-if="activeTab === 'sections'">
+    <div
+      class="flex flex-col gap-2"
+      v-if="activeTab === 'sections'">
       <BaseSectionEdit
         v-for="(section, index) in song.sections"
         :key="index"
@@ -13,14 +17,26 @@
       <BaseSectionAdd @click="addSection" />
     </div>
     <!-- Arrangements -->
-    <div v-if="activeTab === 'arrangements'">
+    <div
+      class="flex flex-col gap-2"
+      v-if="activeTab === 'arrangements'">
       <ArrangementMain :song />
+      <div class="flex flex-col gap-2">
+        <ArrangementSub
+          v-for="(arrangement, index) in song.arrangements"
+          :key="index"
+          :arrangement />
+        <ArrangementAdd @click="addArrangement" />
+      </div>
     </div>
     <!-- Details -->
     <div v-if="activeTab === 'details'">
       <BaseDetails :song />
     </div>
     <div class="h-full"></div>
+  </div>
+  <div v-else>
+    <UProgress animation="carousel" />
   </div>
 </template>
 
@@ -49,6 +65,17 @@ const addSection = () => {
     content: "",
   };
   songStore.addSection(newSection);
+};
+
+const addArrangement = () => {
+  console.log("adding arrangement");
+  const newArrangement = {
+    id: uuidv4(),
+    name: "New Arrangement",
+    sections: [],
+  };
+  songStore.addArrangement(newArrangement);
+  console.log("new arrangement added");
 };
 
 const handleActiveTab = (value) => {

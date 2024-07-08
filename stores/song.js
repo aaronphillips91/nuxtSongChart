@@ -74,6 +74,7 @@ export const useSongStore = defineStore({
         }
       }
     },
+    //Fetches the song with the given songId from the song table.
     async getSong(songId) {
       const supabase = useSupabaseClient();
 
@@ -115,6 +116,7 @@ export const useSongStore = defineStore({
         this.getSongs();
       }
     },
+    //Adds a new section to the song, then calls the updateSong() function to update the local song object.
     async addSection(newSection) {
       if (this.song) {
         this.song.sections = this.song.sections || [];
@@ -122,6 +124,7 @@ export const useSongStore = defineStore({
         await this.updateSong(this.song);
       }
     },
+    //Saves the section to the song, then calls the updateSong() function to update the local song object.
     async saveSection(section) {
       if (this.song) {
         const sectionIndex = this.song.sections.findIndex(
@@ -133,12 +136,22 @@ export const useSongStore = defineStore({
         }
       }
     },
+    //Deletes the section from the song, then calls the updateSong() function to update the local song object.
     async deleteSection(sectionId) {
       this.song.sections = this.song.sections.filter(
         (section) => section.id !== sectionId
       );
       await this.updateSong(this.song);
     },
+    //Adds a new arrangement to the song, then calls the updateSong() function to update the local song object.
+    async addArrangement(newArrangement) {
+      if (this.song) {
+        this.song.arrangements = this.song.arrangements || [];
+        this.song.arrangements.push(newArrangement);
+        await this.updateSong(this.song);
+      }
+    },
+    //Uploads the album art to the album_art table, then returns the public URL of the uploaded album art.
     async uploadArt(file) {
       const supabase = useSupabaseClient();
       const fileName = `${Date.now()}_${file.name}`;

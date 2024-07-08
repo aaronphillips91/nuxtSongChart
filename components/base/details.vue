@@ -1,5 +1,7 @@
 <template>
-  <BaseCard class="flex-col">
+  <BaseCard
+    v-if="song"
+    class="flex-col">
     <div>BASIC INFO</div>
     <div class="flex gap-2">
       <img

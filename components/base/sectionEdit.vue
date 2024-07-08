@@ -112,10 +112,6 @@ onMounted(() => {
 function triggerFunction(section) {
   const text = section.content;
   const formattedSection = convertToChordsAndLyrics(text);
-  console.log(
-    "this is the content from the formatted section: ",
-    formattedSection
-  );
   const songContainer = document.getElementById(props.section.id);
   songContainer.innerHTML = formattedSection;
 }

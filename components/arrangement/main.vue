@@ -1,5 +1,5 @@
 <template>
-  <BaseCard>
+  <BaseCard v-if="song">
     <div class="flex flex-col gap-4">
       <div>Song Sections for {{ song.title }}</div>
       <div class="flex gap-2">
