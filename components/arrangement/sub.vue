@@ -23,6 +23,7 @@
     <div class="flex h-6">
       <ArrangementPill
         v-for="section in arrangement.sections"
+        :key="section.id"
         :section />
     </div>
   </BaseCard>

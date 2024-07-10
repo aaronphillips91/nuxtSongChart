@@ -1,15 +1,20 @@
 <template>
   <div>
-    <label :for="props.label">{{ props.label }}</label>
+    <label :for="label">{{ label }}</label>
     <div class="relative flex items-center gap-4">
       <UIcon
         v-if="previewURL"
         @click="cancelImage"
         class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer"
         name="i-heroicons-x-circle-solid" />
-      <img :src="computedImageSrc" class="rounded-lg size-24" />
+      <img
+        :src="computedImageSrc"
+        class="rounded-lg size-24" />
       <div class="flex flex-col gap-2">
-        <UInput v-model="inputFile" @change="previewImage" type="file" />
+        <UInput
+          v-model="inputFile"
+          @change="previewImage"
+          type="file" />
         <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
       </div>
     </div>
@@ -24,7 +29,7 @@ const previewURL = ref(null);
 const selectedFile = ref(null);
 const inputFile = ref(null);
 
-const props = defineProps({
+const { label, intent } = defineProps({
   label: String,
   intent: {
     type: String,
@@ -58,7 +63,7 @@ const computedImageSrc = computed(() => {
       return previewURL.value;
 
     default:
-      switch (props.intent) {
+      switch (intent) {
         case "album":
           if (songStore.song && songStore.song.art) {
             console.log("album is the intent");

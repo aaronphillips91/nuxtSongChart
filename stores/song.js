@@ -9,6 +9,7 @@ export const useSongStore = defineStore({
   }),
 
   actions: {
+    //Modal Actions
     openNewSongModal() {
       this.song = null;
       this.newSongModal = true;
@@ -18,7 +19,7 @@ export const useSongStore = defineStore({
       this.newSongModal = false;
       console.log("modal closed");
     },
-    //Creates a new song in the song table, then calls the getSongs() function to update the local songs array.
+    //Song Actions
     async createSong(song) {
       const supabase = useSupabaseClient();
       const { data, error } = await supabase
@@ -43,7 +44,6 @@ export const useSongStore = defineStore({
         navigateTo(`/songs/${data.uuid}`);
       }
     },
-    //Fetches the songs from the song table using the current user's uuid.
     async getSongs() {
       const supabase = useSupabaseClient();
       const user = useSupabaseUser();
@@ -74,7 +74,6 @@ export const useSongStore = defineStore({
         }
       }
     },
-    //Fetches the song with the given songId from the song table.
     async getSong(songId) {
       const supabase = useSupabaseClient();
 
@@ -90,7 +89,6 @@ export const useSongStore = defineStore({
         this.song = data;
       }
     },
-    //Updates the song based on the accepted song object, then calls the getSongs() function to update the local songs array.
     async updateSong(song) {
       const supabase = useSupabaseClient();
       const { data, error } = await supabase
@@ -103,7 +101,6 @@ export const useSongStore = defineStore({
         this.getSongs();
       }
     },
-    //Deletes the song based on the accepted song object,  then calls the getSongs() function to update the local songs array.
     async deleteSong(song) {
       const supabase = useSupabaseClient();
       const { error } = await supabase
@@ -116,16 +113,15 @@ export const useSongStore = defineStore({
         this.getSongs();
       }
     },
-    //Adds a new section to the song, then calls the updateSong() function to update the local song object.
-    async addSection(newSection) {
+    //Section Actions
+    async createSection(newSection) {
       if (this.song) {
         this.song.sections = this.song.sections || [];
         this.song.sections.push(newSection);
         await this.updateSong(this.song);
       }
     },
-    //Saves the section to the song, then calls the updateSong() function to update the local song object.
-    async saveSection(section) {
+    async updateSection(section) {
       if (this.song) {
         const sectionIndex = this.song.sections.findIndex(
           (s) => s.id === section.id
@@ -136,22 +132,27 @@ export const useSongStore = defineStore({
         }
       }
     },
-    //Deletes the section from the song, then calls the updateSong() function to update the local song object.
     async deleteSection(sectionId) {
       this.song.sections = this.song.sections.filter(
         (section) => section.id !== sectionId
       );
       await this.updateSong(this.song);
     },
-    //Adds a new arrangement to the song, then calls the updateSong() function to update the local song object.
-    async addArrangement(newArrangement) {
+    //Arrangement Actions
+    async createArrangement(newArrangement) {
       if (this.song) {
         this.song.arrangements = this.song.arrangements || [];
         this.song.arrangements.push(newArrangement);
         await this.updateSong(this.song);
       }
     },
-    //Uploads the album art to the album_art table, then returns the public URL of the uploaded album art.
+    async updateArrangements(arrangementId) {
+      console.log("Updating arrangement: ", arrangementId);
+    },
+    async deleteArrangements(arrangementId) {
+      console.log("Deleting arrangement: ", arrangementId);
+    },
+    //Art Actions
     async uploadArt(file) {
       const supabase = useSupabaseClient();
       const fileName = `${Date.now()}_${file.name}`;

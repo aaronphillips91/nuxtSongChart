@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex max-h-[calc(100dvh-138px)] overflow-scroll flex-col p-2 border rounded-lg max-w-7xl mx-2 xl:mx-auto w-full scBackground border-zinc-700">
+    class="flex max-h-[calc(100dvh-138px)] overflow-scroll no-scrollbar flex-col p-2 border rounded-lg max-w-7xl mx-2 xl:mx-auto w-full scBackground border-zinc-700">
     <div class="flex w-full gap-2">
       <UTabs
         class="w-full"
@@ -17,6 +17,7 @@
       :songs="filteredSongs"
       @clickSong="goToSong" />
   </div>
+  <modalCreateSong />
 </template>
 
 <script setup>
@@ -48,8 +49,7 @@ const goToSong = async (songId) => {
 
 const items = [
   { slot: "mySongs", label: "My Songs" },
-  { slot: "topSongs", label: "Top Songs" },
-  { slot: "newReleases", label: "New Releases" },
+  { slot: "sharedSongs", label: "Shared With Me" },
 ];
 
 const activeTab = ref("mySongs");
@@ -61,6 +61,10 @@ function onChange(index) {
 
 const mySongs = computed(() =>
   songs.value.filter((song) => song.creator_id === profile.uuid)
+);
+
+const sharedSongs = computed(() =>
+  songs.value.filter((song) => song.collaborator.includes(profile.uuid))
 );
 
 const topSongs = computed(() => songs.value.filter((song) => song.public));
@@ -81,8 +85,7 @@ const filterSongs = (songList) => {
     (song) =>
       song.title.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
       song.artist.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-      song.album.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
-      song.sections.toLowerCase().includes(props.searchQuery.toLowerCase())
+      song.album.toLowerCase().includes(props.searchQuery.toLowerCase())
   );
 };
 
@@ -90,10 +93,8 @@ const filteredSongs = computed(() => {
   let songList;
   if (activeTab.value === "mySongs") {
     songList = mySongs.value;
-  } else if (activeTab.value === "topSongs") {
+  } else if (activeTab.value === "sharedSongs") {
     songList = topSongs.value;
-  } else if (activeTab.value === "newReleases") {
-    songList = newReleases.value;
   }
   return filterSongs(songList);
 });

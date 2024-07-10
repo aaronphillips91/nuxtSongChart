@@ -40,7 +40,7 @@
             v-model="section.content"
             autoresize
             wrap="off"
-            class="overflow-x-scroll text-nowrap"
+            class="overflow-x-scroll no-scrollbar text-nowrap"
             :rows="4"
             placeholder="Lyrics and Chords here"
             @input="unsavedTrigger" />
@@ -48,7 +48,7 @@
         <!--Right Div-->
         <div
           :id="section.id"
-          class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap text-nowrap basis-full sm:basis-1/2 min-w-72"></div>
+          class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap basis-full sm:basis-1/2 min-w-72"></div>
       </div>
       <p class="self-end text-[10px] text-zinc-500">
         Section ID: {{ section.id }}
@@ -59,10 +59,9 @@
 
 <script setup>
 const { metaSymbol } = useShortcuts();
-const props = defineProps({
-  section: Object,
-  song: Object,
-});
+import { triggerFunction } from "~/utils/convertToChart";
+
+const { section, song } = defineProps(["section", "song"]);
 
 const songStore = useSongStore();
 const hasUnsavedChanges = ref(false);
@@ -89,7 +88,7 @@ const buttons = [
     click: () => {
       console.log("Deleting...");
       //delete the section using props.section.id to remove the section from props.song.sections
-      songStore.deleteSection(props.section.id);
+      songStore.deleteSection(section.id);
     },
   },
 ];
@@ -101,51 +100,11 @@ const unsavedTrigger = () => {
 const save = () => {
   console.log("Saving...");
   hasUnsavedChanges.value = false;
-  songStore.saveSection(props.section);
-  triggerFunction(props.section);
+  songStore.updateSection(section);
+  triggerFunction(section);
 };
 
 onMounted(() => {
-  triggerFunction(props.section);
+  triggerFunction(section);
 });
-
-function triggerFunction(section) {
-  const text = section.content;
-  const formattedSection = convertToChordsAndLyrics(text);
-  const songContainer = document.getElementById(props.section.id);
-  songContainer.innerHTML = formattedSection;
-}
-
-function convertToChordsAndLyrics(input) {
-  const lines = input.split("\n");
-  let formattedSection = "<div class='song'>";
-
-  for (const line of lines) {
-    const { notes, lyrics } = splitNotesAndLyrics(line);
-    formattedSection += `<div class='line'>`;
-    formattedSection += `<div class='font-mono font-bold chords text-primary-500'>${notes}</div>`;
-    formattedSection += `<div class='font-mono lyrics'>${lyrics}</div>`;
-    formattedSection += `</div>`;
-  }
-
-  formattedSection += "</div>";
-  return formattedSection;
-}
-
-function splitNotesAndLyrics(c) {
-  const parts = c.split(/(\[[^\]]+\])/);
-  return parts.reduce(
-    function (acc, curr) {
-      if (curr.startsWith("[") && curr.endsWith("]")) {
-        const cleanNote = curr.replace(/[[\]]/g, "");
-        const offset = acc.lyrics.length - acc.notes.length + cleanNote.length;
-        acc.notes += cleanNote.padStart(offset, " ");
-      } else {
-        acc.lyrics += curr;
-      }
-      return acc;
-    },
-    { notes: "", lyrics: "" }
-  );
-}
 </script>

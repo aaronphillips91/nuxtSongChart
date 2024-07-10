@@ -64,7 +64,7 @@ const addSection = () => {
     name: "New Section",
     content: "",
   };
-  songStore.createSection(newSection);
+  songStore.addSection(newSection);
 };
 
 const addArrangement = () => {
@@ -74,7 +74,7 @@ const addArrangement = () => {
     name: "New Arrangement",
     sections: [],
   };
-  songStore.createArrangement(newArrangement);
+  songStore.addArrangement(newArrangement);
   console.log("new arrangement added");
 };
 

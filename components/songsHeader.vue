@@ -2,7 +2,11 @@
   <div class="flex flex-col gap-4 my-4 scPage">
     <div class="flex justify-between">
       <h1>Songs</h1>
-      <UButton @click="openModal" variant="outline">Add Song</UButton>
+      <UButton
+        @click="openModal"
+        variant="outline"
+        >Add Song</UButton
+      >
     </div>
     <div>
       <UTabs
@@ -31,8 +35,8 @@ const items = [
     label: "My Songs",
   },
   {
-    slot: "myLibrary",
-    label: "My Library",
+    slot: "shared",
+    label: "Shared with me",
   },
   {
     slot: "newReleases",
