@@ -10,11 +10,11 @@
       class="flex flex-col gap-2"
       v-if="activeTab === 'sections'">
       <BaseSectionEdit
-        v-for="(section, index) in song.sections"
+        v-for="(section, index) in sections"
         :key="index"
         :section
         :song />
-      <BaseSectionAdd @click="addSection" />
+      <BaseSectionAdd @click="chartStore.createSection()" />
     </div>
     <!-- Arrangements -->
     <div
@@ -23,7 +23,7 @@
       <ArrangementMain :song />
       <div class="flex flex-col gap-2">
         <ArrangementSub
-          v-for="(arrangement, index) in song.arrangements"
+          v-for="(arrangement, index) in arrangements"
           :key="index"
           :arrangement />
         <ArrangementAdd @click="addArrangement" />
@@ -49,14 +49,16 @@ definePageMeta({
 
 const route = useRoute();
 const songId = route.params.id;
-const songStore = useSongStore();
+const chartStore = useChartStore();
 const activeTab = ref("sections");
 
 onMounted(() => {
-  songStore.getSong(songId);
+  chartStore.getSong(songId);
 });
 
-const song = computed(() => songStore.song);
+const song = computed(() => chartStore.song);
+const sections = computed(() => chartStore.sections);
+const arrangements = computed(() => chartStore.arrangements);
 
 const addSection = () => {
   const newSection = {

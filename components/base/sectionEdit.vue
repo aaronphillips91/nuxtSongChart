@@ -47,11 +47,11 @@
         </div>
         <!--Right Div-->
         <div
-          :id="section.id"
+          :id="section.uuid"
           class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap basis-full sm:basis-1/2 min-w-72"></div>
       </div>
       <p class="self-end text-[10px] text-zinc-500">
-        Section ID: {{ section.id }}
+        Section ID: {{ section.uuid }}
       </p>
     </div>
   </BaseCard>
@@ -63,7 +63,7 @@ import { triggerFunction } from "~/utils/convertToChart";
 
 const { section, song } = defineProps(["section", "song"]);
 
-const songStore = useSongStore();
+const chartStore = useChartStore();
 const hasUnsavedChanges = ref(false);
 
 const buttons = [
@@ -88,7 +88,7 @@ const buttons = [
     click: () => {
       console.log("Deleting...");
       //delete the section using props.section.id to remove the section from props.song.sections
-      songStore.deleteSection(section.id);
+      chartStore.deleteSection(section);
     },
   },
 ];
@@ -100,7 +100,7 @@ const unsavedTrigger = () => {
 const save = () => {
   console.log("Saving...");
   hasUnsavedChanges.value = false;
-  songStore.updateSection(section);
+  chartStore.updateSection(section);
   triggerFunction(section);
 };
 

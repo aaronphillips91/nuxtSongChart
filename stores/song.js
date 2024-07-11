@@ -5,6 +5,10 @@ export const useSongStore = defineStore({
   state: () => ({
     songs: [],
     song: null,
+    sections: [],
+    arrangements: [],
+    setlists: [],
+    setlist: null,
     newSongModal: false,
   }),
 
@@ -119,6 +123,29 @@ export const useSongStore = defineStore({
         this.song.sections = this.song.sections || [];
         this.song.sections.push(newSection);
         await this.updateSong(this.song);
+      }
+    },
+    async getSections(songId) {
+      const supabase = useSupabaseClient();
+      const { data, error } = await supabase
+        .from("section")
+        .select("*")
+        .eq("song", songId)
+        .order("order", { ascending: true });
+      if (error) {
+        console.error("Error fetching sections: ", error.message);
+      } else {
+        if (data) {
+          if (Array.isArray(data)) {
+            this.sections = data;
+          } else {
+            console.error("Fetched data is not an array:", data);
+            this.sections = [];
+          }
+        } else {
+          console.error("Fetched data is null or undefined:", data);
+          this.sections = [];
+        }
       }
     },
     async updateSection(section) {
