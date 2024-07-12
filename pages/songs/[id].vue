@@ -9,11 +9,20 @@
     <div
       class="flex flex-col gap-2"
       v-if="activeTab === 'sections'">
-      <BaseSectionEdit
-        v-for="(section, index) in sections"
-        :key="index"
-        :section
-        :song />
+      <VueDraggable
+        @start="onStart"
+        @end="onEnd"
+        v-model="sections"
+        :animation="150"
+        :group="{ name: 'people', pull: 'clone', put: false }"
+        :sort="true"
+        class="flex flex-col gap-2">
+        <BaseSectionEdit
+          v-for="(section, index) in sections"
+          :key="index"
+          :section
+          :song />
+      </VueDraggable>
       <BaseSectionAdd @click="chartStore.createSection()" />
     </div>
     <!-- Arrangements -->
@@ -22,11 +31,20 @@
       v-if="activeTab === 'arrangements'">
       <ArrangementMain :song />
       <div class="flex flex-col gap-2">
-        <ArrangementSub
-          v-for="(arrangement, index) in arrangements"
-          :key="index"
-          :arrangement />
-        <ArrangementAdd @click="addArrangement" />
+        <VueDraggable
+          @start="onStart"
+          @end="onEnd"
+          v-model="arrangements"
+          :animation="150"
+          :group="{ name: 'people', pull: 'clone', put: false }"
+          :sort="true"
+          class="flex flex-col gap-2">
+          <ArrangementSub
+            v-for="(arrangement, index) in arrangements"
+            :key="index"
+            :arrangement />
+        </VueDraggable>
+        <ArrangementAdd @click="chartStore.createArrangment()" />
       </div>
     </div>
     <!-- Details -->
@@ -42,6 +60,7 @@
 
 <script setup>
 import { v4 as uuidv4 } from "uuid";
+import { VueDraggable } from "vue-draggable-plus";
 
 definePageMeta({
   middleware: "auth",
@@ -54,31 +73,13 @@ const activeTab = ref("sections");
 
 onMounted(() => {
   chartStore.getSong(songId);
+  chartStore.getSections(songId);
+  chartStore.getArrangements(songId);
 });
 
 const song = computed(() => chartStore.song);
 const sections = computed(() => chartStore.sections);
 const arrangements = computed(() => chartStore.arrangements);
-
-const addSection = () => {
-  const newSection = {
-    id: uuidv4(),
-    name: "New Section",
-    content: "",
-  };
-  songStore.createSection(newSection);
-};
-
-const addArrangement = () => {
-  console.log("adding arrangement");
-  const newArrangement = {
-    id: uuidv4(),
-    name: "New Arrangement",
-    sections: [],
-  };
-  songStore.createArrangement(newArrangement);
-  console.log("new arrangement added");
-};
 
 const handleActiveTab = (value) => {
   activeTab.value = value;

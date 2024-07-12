@@ -50,8 +50,8 @@
 </template>
 
 <script setup>
-const songStore = useSongStore();
-const modal = computed(() => songStore.newSongModal);
+const chartStore = useChartStore();
+const modal = computed(() => chartStore.newSongModal);
 
 const song = {
   title: ref(""),
@@ -75,7 +75,7 @@ const handleFile = (file) => {
 
 const createSong = async () => {
   try {
-    const imageUrl = await songStore.uploadArt(artFile.value);
+    const imageUrl = await chartStore.uploadArt(artFile.value);
     console.log("Art uploaded:", imageUrl);
     song.art.value = imageUrl;
     const newSong = {
@@ -86,7 +86,7 @@ const createSong = async () => {
       original_key: song.original_key.value,
       art: song.art.value,
     };
-    songStore.createSong(newSong);
+    chartStore.createSong(newSong);
   } catch (error) {
     console.error("Error adding song:", error.message);
   }
@@ -98,6 +98,6 @@ const closeModal = () => {
     (song.album.value = ""),
     (song.tempo.value = ""),
     (song.original_key.value = ""),
-    songStore.closeNewSongModal();
+    chartStore.closeNewSongModal();
 };
 </script>

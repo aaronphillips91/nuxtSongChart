@@ -75,14 +75,6 @@ const buttons = [
     },
   },
   {
-    icon: "i-heroicons-chevron-up-solid",
-    variant: "outline",
-  },
-  {
-    icon: "i-heroicons-chevron-down-solid",
-    variant: "outline",
-  },
-  {
     icon: "i-heroicons-trash-solid",
     variant: "outline",
     click: () => {

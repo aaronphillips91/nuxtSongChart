@@ -203,6 +203,21 @@ export const useChartStore = defineStore({
         .select("*")
         .eq("song", songId)
         .order("order", { ascending: true });
+      if (error) {
+        console.error(error);
+      } else {
+        if (data) {
+          if (Array.isArray(data)) {
+            this.arrangements = data;
+          } else {
+            console.error("Fetched data is not an array:", data);
+            this.arrangements = [];
+          }
+        } else {
+          console.error("Fetched data is null or undefined:", data);
+          this.arrangements = [];
+        }
+      }
     },
     async createArrangment() {
       if (!this.song) {
@@ -210,10 +225,12 @@ export const useChartStore = defineStore({
         return;
       } else {
         const supabase = useSupabaseClient();
+        console.log("Creating arrangement for song", this.song.uuid);
         const { data, error } = await supabase.from("arrangement").insert({
           name: "New Arrangement",
           song: this.song.uuid,
         });
+        this.getArrangements(this.song.uuid);
       }
     },
     async getArrangement(arrangementId) {
