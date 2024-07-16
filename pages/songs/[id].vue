@@ -6,20 +6,22 @@
       :song
       @activeTab="handleActiveTab" />
     <!-- Sections -->
+    <SectionsMain
+      v-if="activeTab === 'sections'"
+      :song />
     <div
       class="flex flex-col gap-2"
-      v-if="activeTab === 'sections'">
+      v-if="activeTab === 'newSections'">
       <VueDraggable
-        @start="onStart"
-        @end="onEnd"
-        v-model="sections"
-        :animation="150"
-        :group="{ name: 'people', pull: 'clone', put: false }"
+        @end="updateSectionOrder"
+        v-model="localSections"
+        :animation="250"
+        :group="{ name: 'sections', pull: 'clone', put: false }"
         :sort="true"
         class="flex flex-col gap-2">
         <BaseSectionEdit
-          v-for="(section, index) in sections"
-          :key="index"
+          v-for="(section, order) in localSections"
+          :key="order"
           :section
           :song />
       </VueDraggable>
@@ -32,15 +34,14 @@
       <ArrangementMain :song />
       <div class="flex flex-col gap-2">
         <VueDraggable
-          @start="onStart"
-          @end="onEnd"
-          v-model="arrangements"
+          @end="updateArrangementOrder"
+          v-model="localArrangements"
           :animation="150"
-          :group="{ name: 'people', pull: 'clone', put: false }"
+          :group="{ name: 'arrangements', pull: 'clone', put: false }"
           :sort="true"
           class="flex flex-col gap-2">
           <ArrangementSub
-            v-for="(arrangement, index) in arrangements"
+            v-for="(arrangement, index) in localArrangements"
             :key="index"
             :arrangement />
         </VueDraggable>
@@ -59,7 +60,6 @@
 </template>
 
 <script setup>
-import { v4 as uuidv4 } from "uuid";
 import { VueDraggable } from "vue-draggable-plus";
 
 definePageMeta({
@@ -70,18 +70,50 @@ const route = useRoute();
 const songId = route.params.id;
 const chartStore = useChartStore();
 const activeTab = ref("sections");
+const isLoading = ref(false);
 
-onMounted(() => {
-  chartStore.getSong(songId);
-  chartStore.getSections(songId);
-  chartStore.getArrangements(songId);
+onMounted(async () => {
+  isLoading.value = true;
+  await chartStore.getSong(songId);
+  await chartStore.getSections(songId);
+  await chartStore.getArrangements(songId);
+  isLoading.value = false;
 });
 
+onUnmounted(() => {
+  chartStore.song = null;
+  chartStore.sections = [];
+  chartStore.arrangements = [];
+});
+
+const localSections = ref([...chartStore.sections]);
+const localArrangements = ref([...chartStore.arrangements]);
+
+watch(
+  () => chartStore.sections,
+  (newSections) => {
+    localSections.value = [...newSections];
+  }
+);
+
+watch(
+  () => chartStore.arrangements,
+  (newArrangements) => {
+    localArrangements.value = [...newArrangements];
+  }
+);
+
 const song = computed(() => chartStore.song);
-const sections = computed(() => chartStore.sections);
-const arrangements = computed(() => chartStore.arrangements);
 
 const handleActiveTab = (value) => {
   activeTab.value = value;
+};
+
+const updateSectionOrder = () => {
+  chartStore.updateSectionOrder(localSections.value);
+};
+
+const updateArrangementOrder = () => {
+  chartStore.updateArrangementOrder(localArrangements.value);
 };
 </script>

@@ -7,7 +7,7 @@
           <UIcon
             name="i-heroicons-bars-2"
             class="handle size-6 hover:cursor-grab active:cursor-grabbing" />
-          <h4>{{ section.name }}</h4>
+          <h4>{{ localSection.name }}</h4>
         </div>
         <div class="flex items-center gap-2">
           <p v-if="hasUnsavedChanges">Unsaved Changes</p>
@@ -33,17 +33,15 @@
         <!--Left Div-->
         <div class="flex flex-col gap-2 basis-full sm:basis-1/2 min-w-72">
           <UInput
-            v-model="section.name"
-            placeholder="Section name"
-            @input="unsavedTrigger" />
+            v-model="localSection.name"
+            placeholder="Section name" />
           <UTextarea
-            v-model="section.content"
+            v-model="localSection.content"
             autoresize
             wrap="off"
             class="overflow-x-scroll no-scrollbar text-nowrap"
             :rows="4"
-            placeholder="Lyrics and Chords here"
-            @input="unsavedTrigger" />
+            placeholder="Lyrics and Chords here" />
         </div>
         <!--Right Div-->
         <div
@@ -63,8 +61,15 @@ import { triggerFunction } from "~/utils/convertToChart";
 
 const { section, song } = defineProps(["section", "song"]);
 
+const localSection = ref(section);
+
+console.log("This sections UUID is: ", section.uuid);
+console.log("This sections UUID is: ", localSection.value.uuid);
+
 const chartStore = useChartStore();
 const hasUnsavedChanges = ref(false);
+
+const emit = defineEmits(["delete"]);
 
 const buttons = [
   {
@@ -81,6 +86,8 @@ const buttons = [
       console.log("Deleting...");
       //delete the section using props.section.id to remove the section from props.song.sections
       chartStore.deleteSection(section);
+      //emit delete to parent
+      emit("delete");
     },
   },
 ];
@@ -91,8 +98,9 @@ const unsavedTrigger = () => {
 
 const save = () => {
   console.log("Saving...");
+  console.log(section.content);
   hasUnsavedChanges.value = false;
-  chartStore.updateSection(section);
+  chartStore.updateSection(localSection.value);
   triggerFunction(section);
 };
 

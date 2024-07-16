@@ -161,6 +161,7 @@ export const useChartStore = defineStore({
           name: "New Section",
           content: "",
           song: this.song.uuid,
+          order: this.sections.length,
         });
 
         if (error) {
@@ -193,6 +194,15 @@ export const useChartStore = defineStore({
       } else {
         this.getSections(this.song.uuid);
       }
+    },
+    async updateSectionOrder(newOrder) {
+      for (let i = 0; i < newOrder.length; i++) {
+        const section = newOrder[i];
+        section.order = i;
+        await this.updateSection(section);
+      }
+      // After updating all sections, fetch the updated list
+      await this.getSections(this.song.uuid);
     },
 
     //Arrangement Actions
@@ -270,6 +280,15 @@ export const useChartStore = defineStore({
       } else {
         this.getArrangements(this.song.uuid);
       }
+    },
+    async updateArrangementOrder(newOrder) {
+      for (let i = 0; i < newOrder.length; i++) {
+        const arrangement = newOrder[i];
+        arrangement.order = i;
+        await this.updateArrangement(arrangement);
+      }
+      // After updating all sections, fetch the updated list
+      await this.getSections(this.song.uuid);
     },
 
     //Arrangement Section Actions
