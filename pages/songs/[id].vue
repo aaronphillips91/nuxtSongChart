@@ -9,24 +9,6 @@
     <SectionsMain
       v-if="activeTab === 'sections'"
       :song />
-    <div
-      class="flex flex-col gap-2"
-      v-if="activeTab === 'newSections'">
-      <VueDraggable
-        @end="updateSectionOrder"
-        v-model="localSections"
-        :animation="250"
-        :group="{ name: 'sections', pull: 'clone', put: false }"
-        :sort="true"
-        class="flex flex-col gap-2">
-        <BaseSectionEdit
-          v-for="(section, order) in localSections"
-          :key="order"
-          :section
-          :song />
-      </VueDraggable>
-      <BaseSectionAdd @click="chartStore.createSection()" />
-    </div>
     <!-- Arrangements -->
     <div
       class="flex flex-col gap-2"

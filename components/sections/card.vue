@@ -15,8 +15,9 @@
           <div v-if="!isEditing">{{ section.name }}</div>
           <input
             v-else
+            @keydown.enter="handleSave"
             type="text"
-            v-model="localName" />
+            v-model="localSection.name.value" />
         </div>
         <div id="top-right">
           <UDropdown :items>
@@ -27,19 +28,61 @@
           </UDropdown>
         </div>
       </div>
-      <div id="bottom">
-        <div id="bottom-left"></div>
-        <div id="bottom-right"></div>
+      <div
+        id="bottom"
+        class="flex flex-wrap-reverse w-full gap-2 sm:flex-nowrap">
+        <div
+          class="flex flex-col gap-2 basis-full sm:basis-1/2 min-w-72"
+          id="bottom-left">
+          <UTextarea
+            v-model="localSection.content.value"
+            @change="handleChange"
+            autoresize
+            wrap="off"
+            class="overflow-x-scroll no-scrollbar text-nowrap"
+            :rows="4"
+            placeholder="Lyrics and Chords here" />
+        </div>
+        <div id="bottom-right">
+          <div
+            class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap basis-full sm:basis-1/2 min-w-72"
+            :id="localSection.uuid.value"
+            v-html="localSection.formattedContent.value"></div>
+        </div>
       </div>
     </div>
   </BaseCard>
 </template>
 
 <script setup>
+import { triggerFunction } from "~/utils/convertToChart";
 const chartStore = useChartStore();
 const { section, song } = defineProps(["section", "song"]);
 const isEditing = ref(false);
-const localName = ref(section.name);
+const localSection = {
+  name: ref(section.name),
+  content: ref(section.content),
+  uuid: ref(section.uuid),
+  song: ref(section.song),
+  formattedContent: ref(section.formattedContent),
+};
+
+const handleSave = () => {
+  section.name = localSection.name.value;
+  chartStore.updateSection(section);
+  isEditing.value = false;
+};
+
+const handleChange = async () => {
+  const saveSection = {
+    name: localSection.name.value,
+    content: localSection.content.value,
+    uuid: localSection.uuid.value,
+    song: localSection.song.value,
+    formattedContent: triggerFunction(localSection),
+  };
+  await chartStore.updateSection(saveSection);
+};
 
 const items = computed(() => {
   let baseItems = [];
@@ -62,7 +105,7 @@ const items = computed(() => {
           icon: "i-heroicons-trash-20-solid",
           shortcuts: ["D"],
           click: () => {
-            console.log("Deleting...");
+            chartStore.deleteSection(section);
           },
         },
       ],
@@ -75,7 +118,7 @@ const items = computed(() => {
           icon: "i-heroicons-check-20-solid",
           shortcuts: ["Enter"],
           click: () => {
-            section.name = localName.value;
+            section.name = localSection.name.value;
             chartStore.updateSection(section);
             isEditing.value = false;
           },
@@ -85,7 +128,7 @@ const items = computed(() => {
           icon: "i-heroicons-x-circle-solid",
           shortcuts: ["Esc"],
           click: () => {
-            localName.value = section.name;
+            localSection.name.value = section.name;
             isEditing.value = false;
           },
         },

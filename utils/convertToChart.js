@@ -1,8 +1,10 @@
 export function triggerFunction(section) {
-  const text = section.content;
+  const text = section.content.value;
   const formattedSection = convertToChordsAndLyrics(text);
-  const songContainer = document.getElementById(section.uuid);
-  songContainer.innerHTML = formattedSection;
+
+  //const songContainer = document.getElementById(section.uuid.value);
+  //songContainer.innerHTML = formattedSection;
+  return formattedSection;
 }
 
 function convertToChordsAndLyrics(input) {
