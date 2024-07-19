@@ -1,9 +1,8 @@
+import chords from "~/assets/json/chords.json";
+
 export function triggerFunction(section) {
   const text = section.content.value;
   const formattedSection = convertToChordsAndLyrics(text);
-
-  //const songContainer = document.getElementById(section.uuid.value);
-  //songContainer.innerHTML = formattedSection;
   return formattedSection;
 }
 
@@ -39,3 +38,5 @@ function splitNotesAndLyrics(c) {
     { notes: "", lyrics: "" }
   );
 }
+
+export function convertChordsToNumbers(key, chord, variation) {}

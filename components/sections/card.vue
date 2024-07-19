@@ -42,11 +42,11 @@
             class="overflow-x-scroll no-scrollbar text-nowrap"
             :rows="4"
             placeholder="Lyrics and Chords here" />
+          <SectionsNotes :song />
         </div>
         <div id="bottom-right">
           <div
             class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap basis-full sm:basis-1/2 min-w-72"
-            :id="localSection.uuid.value"
             v-html="localSection.formattedContent.value"></div>
         </div>
       </div>

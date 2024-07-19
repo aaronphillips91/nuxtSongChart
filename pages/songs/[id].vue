@@ -5,6 +5,7 @@
     <HeaderSong
       :song
       @activeTab="handleActiveTab" />
+    <SongToolbar :song />
     <!-- Sections -->
     <SectionsMain
       v-if="activeTab === 'sections'"

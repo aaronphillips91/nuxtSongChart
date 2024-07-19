@@ -96,7 +96,6 @@ export const useChartStore = defineStore({
       if (error) {
         console.error(error);
       } else {
-        console.log("Fetched song:", data);
         this.song = data;
       }
     },

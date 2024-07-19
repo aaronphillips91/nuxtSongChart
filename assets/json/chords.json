@@ -1,0 +1,119 @@
+{
+  "Numbers": {
+    "1": ["1", "1/3", "1/5"],
+    "2": ["2m", "2m/4", "2m/6"],
+    "3": ["3m", "3m/5", "3m/7"],
+    "4": ["4", "4/6", "4/1"],
+    "5": ["5", "5/7", "5/2"],
+    "6": ["6m", "6m/1", "6m/3"],
+    "7": ["7dim", "7dim/2", "7dim/4"]
+  },
+  "C": {
+    "C": ["C", "C/E", "C/G"],
+    "Dm": ["Dm", "Dm/F", "Dm/A"],
+    "Em": ["Em", "Em/G", "Em/B"],
+    "F": ["F", "F/A", "F/C"],
+    "G": ["G", "G/B", "G/D"],
+    "Am": ["Am", "Am/C", "Am/E"],
+    "Bdim": ["Bdim", "Bdim/D", "Bdim/F"]
+  },
+  "C#": {
+    "C#": ["C#", "C#/F", "C#/G#"],
+    "D#m": ["D#m", "D#m/F#", "D#m/A#"],
+    "E#m": ["E#m", "E#m/G#", "E#m/B#"],
+    "F#": ["F#", "F#/A#", "F#/C#"],
+    "G#": ["G#", "G#/C", "G#/D#"],
+    "A#m": ["A#m", "A#m/C#", "A#m/E#"],
+    "B#dim": ["B#dim", "B#dim/D#", "B#dim/F#"]
+  },
+  "D": {
+    "D": ["D", "D/F#", "D/A"],
+    "Em": ["Em", "Em/G", "Em/B"],
+    "F#m": ["F#m", "F#m/A", "F#m/C#"],
+    "G": ["G", "G/B", "G/D"],
+    "A": ["A", "A/C#", "A/E"],
+    "Bm": ["Bm", "Bm/D", "Bm/F#"],
+    "C#dim": ["C#dim", "C#dim/E", "C#dim/G"]
+  },
+  "Eb": {
+    "Eb": ["Eb", "Eb/G", "Eb/Bb"],
+    "Fm": ["Fm", "Fm/Ab", "Fm/C"],
+    "Gm": ["Gm", "Gm/Bb", "Gm/D"],
+    "Ab": ["Ab", "Ab/C", "Ab/Eb"],
+    "Bb": ["Bb", "Bb/D", "Bb/F"],
+    "Cm": ["Cm", "Cm/Eb", "Cm/G"],
+    "Ddim": ["Ddim", "Ddim/F", "Ddim/Ab"]
+  },
+  "E": {
+    "E": ["E", "E/G#", "E/B"],
+    "F#m": ["F#m", "F#m/A", "F#m/C#"],
+    "G#m": ["G#m", "G#m/B", "G#m/D#"],
+    "A": ["A", "A/C#", "A/E"],
+    "B": ["B", "B/D#", "B/F#"],
+    "C#m": ["C#m", "C#m/E", "C#m/G#"],
+    "D#dim": ["D#dim", "D#dim/F#", "D#dim/A"]
+  },
+  "F": {
+    "F": ["F", "F/A", "F/C"],
+    "Gm": ["Gm", "Gm/Bb", "Gm/D"],
+    "Am": ["Am", "Am/C", "Am/E"],
+    "Bb": ["Bb", "Bb/D", "Bb/F"],
+    "C": ["C", "C/E", "C/G"],
+    "Dm": ["Dm", "Dm/F", "Dm/A"],
+    "Edim": ["Edim", "Edim/G", "Edim/Bb"]
+  },
+  "F#": {
+    "F#": ["F#", "F#/A#", "F#/C#"],
+    "G#m": ["G#m", "G#m/B", "G#m/D#"],
+    "A#m": ["A#m", "A#m/C#", "A#m/E#"],
+    "B": ["B", "B/D#", "B/F#"],
+    "C#": ["C#", "C#/F", "C#/G#"],
+    "D#m": ["D#m", "D#m/F#", "D#m/A#"],
+    "E#dim": ["E#dim", "E#dim/G#", "E#dim/B"]
+  },
+  "G": {
+    "G": ["G", "G/B", "G/D"],
+    "Am": ["Am", "Am/C", "Am/E"],
+    "Bm": ["Bm", "Bm/D", "Bm/F#"],
+    "C": ["C", "C/E", "C/G"],
+    "D": ["D", "D/F#", "D/A"],
+    "Em": ["Em", "Em/G", "Em/B"],
+    "F#dim": ["F#dim", "F#dim/A", "F#dim/C"]
+  },
+  "Ab": {
+    "Ab": ["Ab", "Ab/C", "Ab/Eb"],
+    "Bbm": ["Bbm", "Bbm/Db", "Bbm/F"],
+    "Cm": ["Cm", "Cm/Eb", "Cm/G"],
+    "Db": ["Db", "Db/F", "Db/Ab"],
+    "Eb": ["Eb", "Eb/G", "Eb/Bb"],
+    "Fm": ["Fm", "Fm/Ab", "Fm/C"],
+    "Gdim": ["Gdim", "Gdim/Bb", "Gdim/Db"]
+  },
+  "A": {
+    "A": ["A", "A/C#", "A/E"],
+    "Bm": ["Bm", "Bm/D", "Bm/F#"],
+    "C#m": ["C#m", "C#m/E", "C#m/G#"],
+    "D": ["D", "D/F#", "D/A"],
+    "E": ["E", "E/G#", "E/B"],
+    "F#m": ["F#m", "F#m/A", "F#m/C#"],
+    "G#dim": ["G#dim", "G#dim/B", "G#dim/D"]
+  },
+  "Bb": {
+    "Bb": ["Bb", "Bb/D", "Bb/F"],
+    "Cm": ["Cm", "Cm/Eb", "Cm/G"],
+    "Dm": ["Dm", "Dm/F", "Dm/A"],
+    "Eb": ["Eb", "Eb/G", "Eb/Bb"],
+    "F": ["F", "F/A", "F/C"],
+    "Gm": ["Gm", "Gm/Bb", "Gm/D"],
+    "Adim": ["Adim", "Adim/C", "Adim/Eb"]
+  },
+  "B": {
+    "B": ["B", "B/D#", "B/F#"],
+    "C#m": ["C#m", "C#m/E", "C#m/G#"],
+    "D#m": ["D#m", "D#m/F#", "D#m/A#"],
+    "E": ["E", "E/G#", "E/B"],
+    "F#": ["F#", "F#/A#", "F#/C#"],
+    "G#m": ["G#m", "G#m/B", "G#m/D#"],
+    "A#dim": ["A#dim", "A#dim/C#", "A#dim/E"]
+  }
+}
