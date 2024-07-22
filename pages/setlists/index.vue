@@ -1,5 +1,7 @@
 <template>
-  <setlistsHeader />
+  <div class="w-screen max-w-7xl">
+    <setlistsHeader />
+  </div>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-around">
+  <div class="flex justify-around w-full">
     <div class="flex items-center gap-2">
       Key:
       <UDropdown

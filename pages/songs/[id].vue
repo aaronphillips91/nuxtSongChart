@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="song"
-    class="flex flex-col gap-2 scPage">
+    class="flex flex-col w-screen gap-2 px-2 pt-2 sm:pt-0 xl:px-0 max-w-7xl">
     <HeaderSong
       :song
       @activeTab="handleActiveTab" />

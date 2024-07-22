@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="hidden select-none sm:flex max-w-7xl mb-2 justify-between mx-auto rounded-b-lg !border-t-0 scBorder scBackground p-2">
+    class="hidden select-none sm:flex max-w-7xl mb-2 justify-between w-full rounded-b-lg !border-t-0 scBorder scBackground p-2">
     <div class="flex items-center gap-8">
       <!--SongChart Icon-->
       <NuxtLink to="/">
@@ -24,9 +24,9 @@
               isActive
                 ? 'text-primary-600 dark:text-primary-500'
                 : 'hover:text-primary-600'
-            "
-            >{{ link.name }}</span
-          >
+            ">
+            {{ link.name }}
+          </span>
         </NuxtLink>
       </div>
     </div>

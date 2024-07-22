@@ -2,13 +2,13 @@
   <BaseCard>
     <div
       id="main"
-      class="flex flex-col w-full gap-2 p-4">
+      class="flex flex-col w-full gap-2">
       <div
         id="top"
-        class="flex items-center justify-between">
+        class="flex justify-between">
         <div
           id="top-left"
-          class="flex items-center gap-2">
+          class="flex flex-row items-center gap-2">
           <UIcon
             name="i-heroicons-bars-2"
             class="handle size-6 hover:cursor-grab active:cursor-grabbing" />
@@ -30,10 +30,10 @@
       </div>
       <div
         id="bottom"
-        class="flex flex-wrap-reverse w-full gap-2 sm:flex-nowrap">
+        class="flex gap-4">
         <div
-          class="flex flex-col gap-2 basis-full sm:basis-1/2 min-w-72"
-          id="bottom-left">
+          id="bottom-left"
+          class="flex flex-col w-1/2 gap-2 min-w-96">
           <UTextarea
             v-model="localSection.content.value"
             @change="handleChange"
@@ -44,9 +44,11 @@
             placeholder="Lyrics and Chords here" />
           <SectionsNotes :song />
         </div>
-        <div id="bottom-right">
+        <div
+          id="bottom-right"
+          class="w-1/2 min-w-96">
           <div
-            class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap basis-full sm:basis-1/2 min-w-72"
+            class="overflow-hidden overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap"
             v-html="localSection.formattedContent.value"></div>
         </div>
       </div>

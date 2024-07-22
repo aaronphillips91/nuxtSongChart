@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex max-h-[calc(100dvh-138px)] overflow-scroll no-scrollbar flex-col p-2 border rounded-lg max-w-7xl mx-2 xl:mx-auto w-full scBackground border-zinc-700">
+    class="flex max-h-[calc(100dvh-138px)] overflow-scroll no-scrollbar flex-col p-2 border rounded-lg max-w-7xl mx-auto w-full scBackground border-zinc-300 dark:border-zinc-700">
     <div class="flex w-full gap-2">
       <UTabs
         class="w-full"
@@ -9,9 +9,9 @@
       <UButton
         @click="openModal"
         class="h-10"
-        variant="outline"
-        >Add Song</UButton
-      >
+        variant="outline">
+        Add Song
+      </UButton>
     </div>
     <baseSongList
       :songs="filteredSongs"

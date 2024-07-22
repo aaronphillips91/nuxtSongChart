@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-2 min-h-dvh max-w-7xl xl:mx-auto">
+  <div class="flex flex-col items-center justify-center w-full px-2">
     <NavDesktop />
     <NavMobile />
     <div>

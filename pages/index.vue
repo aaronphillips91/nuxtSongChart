@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center justify-center gap-4">
     <img
-      class="w-1/2 mx-auto"
+      class="w-1/2 mx-auto dark:invert-0 invert"
       src="/logos/SongChart Logo.svg"
       alt="" />
     <div
@@ -19,21 +19,13 @@
         to="/songs"
         label="Dashboard" />
     </div>
-    <div>Update</div>
-    <div>
-      <VueDraggable
-        @start="onStart"
-        @end="onEnd"
-        v-model="list1"
-        :animation="150"
-        :group="{ name: 'people', pull: 'clone', put: false }"
-        :sort="true"
-        class="flex gap-2 p-4 rounded w-300px bg-gray-500/5">
-        <ArrangementPill
-          v-for="item in list1"
-          :key="item.id"
-          :section="item" />
-      </VueDraggable>
+    <div v-else>
+      <UButton
+        to="/login"
+        label="Login" />
+      <UButton
+        to="/register"
+        label="Register" />
     </div>
   </div>
 </template>

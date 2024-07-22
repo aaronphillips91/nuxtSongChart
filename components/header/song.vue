@@ -1,30 +1,28 @@
 <template>
-  <div class="flex flex-col !w-full gap-2">
-    <BaseCard class="flex flex-col items-center gap-2">
-      <div class="flex flex-row items-center w-full gap-2">
-        <img
-          class="rounded size-32"
-          :src="song.art"
-          alt="" />
-        <div class="flex flex-col gap-2">
-          <h4>{{ song.title }}</h4>
-          <p>{{ song.artist }}</p>
-        </div>
+  <BaseCard class="flex flex-col items-center w-full gap-2">
+    <div class="flex flex-row items-center w-full gap-2">
+      <img
+        class="rounded size-32"
+        :src="song.art"
+        alt="" />
+      <div class="flex flex-col gap-2">
+        <h4>{{ song.title }}</h4>
+        <p>{{ song.artist }}</p>
       </div>
-      <UTabs
-        class="w-full mb-0"
-        :items
-        @change="onChange"
-        :ui="{
-          wrapper: 'relateive space-y-0',
-          list: {
-            tab: {
-              size: 'text-xs',
-            },
+    </div>
+    <UTabs
+      class="w-full mb-0"
+      :items
+      @change="onChange"
+      :ui="{
+        wrapper: 'relateive space-y-0',
+        list: {
+          tab: {
+            size: 'text-xs',
           },
-        }" />
-    </BaseCard>
-  </div>
+        },
+      }" />
+  </BaseCard>
 </template>
 
 <script setup>

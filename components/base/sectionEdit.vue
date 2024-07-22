@@ -48,9 +48,6 @@
           :id="section.uuid"
           class="flex flex-col gap-2 overflow-x-scroll whitespace-pre-wrap no-scrollbar text-nowrap basis-full sm:basis-1/2 min-w-72"></div>
       </div>
-      <p class="self-end text-[10px] text-zinc-500">
-        Section ID: {{ section.uuid }}
-      </p>
     </div>
   </BaseCard>
 </template>
