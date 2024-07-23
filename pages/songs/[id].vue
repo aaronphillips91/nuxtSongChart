@@ -26,6 +26,7 @@
           <ArrangementSub
             v-for="(arrangement, index) in localArrangements"
             :key="index"
+            @click="handleNavigation(arrangement)"
             :arrangement />
         </VueDraggable>
         <ArrangementAdd @click="chartStore.createArrangment()" />
@@ -54,6 +55,11 @@ const songId = route.params.id;
 const chartStore = useChartStore();
 const activeTab = ref("sections");
 const isLoading = ref(false);
+
+const handleNavigation = async (arrangement) => {
+  await chartStore.getArrangement(arrangement.uuid);
+  navigateTo(`/arrangement/${arrangement.uuid}`);
+};
 
 onMounted(async () => {
   isLoading.value = true;

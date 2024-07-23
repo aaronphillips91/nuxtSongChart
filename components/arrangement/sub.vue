@@ -20,17 +20,25 @@
         @click="handleSave"
         label="Save Arrangement" />
     </div>
-    <div class="flex h-6">
+    <VueDraggable
+      group="pills"
+      class="flex h-6">
       <ArrangementPill
         v-for="section in arrangement.sections"
         :key="section.id"
         :section />
-    </div>
+    </VueDraggable>
   </BaseCard>
 </template>
 
 <script setup>
+import { VueDraggable } from "vue-draggable-plus";
 const { arrangement } = defineProps(["arrangement"]);
+const chartStore = useChartStore();
+
+onMounted(async () => {
+  chartStore.getArrangementSections(arrangement.uuid);
+});
 
 const edit = ref(false);
 

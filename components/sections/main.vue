@@ -7,7 +7,14 @@
     :sort="true"
     :handle="'.handle'"
     class="flex flex-col gap-2">
-    <SectionsCard
+    <SectionsCardDesktop
+      v-if="!isMobile"
+      :section
+      :song
+      :key="section"
+      v-for="section in localSections" />
+    <SectionsCardMobile
+      v-if="isMobile"
       :section
       :song
       :key="section"
@@ -15,7 +22,7 @@
   </VueDraggable>
   <BaseCard
     @click="createSection"
-    class="!bg-transparent justify-center !p-12 hover:!bg-zinc-900 transition-all duration-200 select-none hover:cursor-pointer border-dashed">
+    class="!bg-transparent mb-20 justify-center !p-12 hover:!bg-zinc-900 transition-all duration-200 select-none hover:cursor-pointer border-dashed">
     Add Section
   </BaseCard>
 </template>
@@ -25,6 +32,22 @@ import { VueDraggable } from "vue-draggable-plus";
 const chartStore = useChartStore();
 const { song } = defineProps(["song"]);
 const localSections = ref([]);
+
+const screenWidth = ref(window.innerWidth);
+
+const handleResize = () => {
+  screenWidth.value = window.innerWidth;
+};
+
+onMounted(() => {
+  window.addEventListener("resize", handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", handleResize);
+});
+
+const isMobile = computed(() => screenWidth.value < 768);
 
 onMounted(async () => {
   await chartStore.getSections(song.uuid);

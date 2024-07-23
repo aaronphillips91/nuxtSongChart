@@ -1,7 +1,9 @@
 <template>
   <div class="flex gap-2">
     <UDropdown v-for="chord in primaryChords">
-      <UButton :label="chord" />
+      <UButton
+        size="2xs"
+        :label="chord" />
     </UDropdown>
   </div>
 </template>

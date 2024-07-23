@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center gap-2 px-2 py-1 text-xs rounded cursor-move select-none bg-zinc-700">
+    class="flex items-center gap-2 px-2 py-1 text-xs rounded cursor-move select-none bg-zinc-700 pill">
     <div>{{ section.name }}</div>
     <UIcon
       v-if="destructive"
