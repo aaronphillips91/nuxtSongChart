@@ -1,8 +1,9 @@
 <template>
   <div class="flex flex-col gap-2">
     <HeaderArrangement :song />
-    <ArrangementMain :song />
-    <ArrangementSub :arrangement />
+    <ArrangementEdit
+      :arrangement
+      :song />
   </div>
 </template>
 

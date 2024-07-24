@@ -314,14 +314,14 @@ export const useChartStore = defineStore({
       } else {
         if (data) {
           if (Array.isArray(data)) {
-            this.arrangementSections = data;
+            return data;
           } else {
             console.error("Fetched data is not an array:", data);
-            this.arrangementSections = [];
+            return [];
           }
         } else {
           console.error("Fetched data is null or undefined:", data);
-          this.arrangementSections = [];
+          return [];
         }
       }
     },

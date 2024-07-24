@@ -1,9 +1,9 @@
 <template>
-  <div
-    class="flex items-center justify-center gap-1 p-12 mb-20 text-center bg-transparent border border-dashed rounded-lg hover:cursor-pointer hover:bg-zinc-900 border-zinc-700">
-    <UIcon name="i-heroicons-plus-circle-20-solid" />
-    <span>Add Arrangement</span>
-  </div>
+  <BaseCard
+    @click="createArrangement"
+    class="!bg-transparent mb-20 justify-center !p-12 hover:!bg-zinc-900 transition-all duration-200 select-none hover:cursor-pointer border-dashed">
+    Add Arrangement
+  </BaseCard>
 </template>
 
 <script setup></script>
