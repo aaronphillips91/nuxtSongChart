@@ -31,14 +31,16 @@
 </template>
 
 <script setup>
-import { VueDraggable } from "vue-draggable-plus";
-
 //set layout to landing
 definePageMeta({
   layout: "landing",
 });
 
 const user = useSupabaseUser();
+console.log(user.value);
+
+const session = useSupabaseSession();
+console.log(session.value);
 
 const list1 = ref([
   {
