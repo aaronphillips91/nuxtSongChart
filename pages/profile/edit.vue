@@ -12,9 +12,14 @@
           @click="cancelImage"
           class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer"
           name="i-heroicons-x-circle-solid" />
-        <img :src="computedImageSrc" class="rounded-lg size-24" />
+        <img
+          :src="computedImageSrc"
+          class="rounded-lg size-24" />
         <div class="flex flex-col gap-2">
-          <UInput v-model="inputFile" @change="previewImage" type="file" />
+          <UInput
+            v-model="inputFile"
+            @change="previewImage"
+            type="file" />
           <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
         </div>
       </div>
@@ -23,7 +28,7 @@
       <div class="w-full">
         <label for="name">Full Name</label>
         <UInput
-          v-model="name"
+          v-model="profileStore.profile.name"
           placeholder="Full Name"
           icon="i-heroicons-user-solid"
           color="white"
@@ -32,7 +37,7 @@
       <div class="w-full">
         <label for="username">Username</label>
         <UInput
-          v-model="username"
+          v-model="profileStore.profile.username"
           placeholder="Username"
           icon="i-heroicons-at-symbol-solid"
           color="white"
@@ -43,7 +48,7 @@
       <div class="w-full">
         <label for="email">Email</label>
         <UInput
-          v-model="email"
+          v-model="profileStore.profile.email"
           placeholder="email"
           icon="i-heroicons-envelope-solid"
           color="white"
@@ -52,7 +57,7 @@
       <div class="w-full">
         <label for="phone">Phone (Optional)</label>
         <UInput
-          v-model="phone"
+          v-model="profileStore.profile.phone"
           placeholder="Phone"
           icon="i-heroicons-phone-solid"
           color="white"
@@ -71,26 +76,39 @@
     <div class="flex gap-4">
       <div
         v-for="t in tiers"
-        class="flex flex-col w-full p-4 border rounded-lg border-zinc-700 scBackground hover:bg-zinc-800"
-        :class="{ '!border-primary-500': t.name == tier }">
+        class="flex flex-col w-full p-4 border rounded-lg min-w-72 border-zinc-700 scBackground hover:bg-zinc-800"
+        :class="{ '!border-primary-500': t.name == profileStore.profile.tier }">
         <h4 class="text-center">{{ t.name }}</h4>
         <div class="mb-4 font-black text-center">{{ t.price }}</div>
         <div class="mb-4">
-          <div v-for="n in t.points" :key="n" class="mb-2 text-xs">
+          <div
+            v-for="n in t.points"
+            :key="n"
+            class="mb-2 text-xs">
             - {{ n }}
           </div>
         </div>
-        <UButton @click="setTier(t.name)" block class="mt-auto">
+        <UButton
+          @click="setTier(t.name)"
+          block
+          class="mt-auto">
           {{
-            t.name === profile.sub_tier ? "Current Tier" : "Select " + t.name
+            t.name === profileStore.profile.sub_tier
+              ? "Current Tier"
+              : "Select " + t.name
           }}
         </UButton>
       </div>
     </div>
 
     <div class="flex gap-4 mb-24 ml-auto">
-      <UButton @click="cancelEdit" variant="ghost" label="Cancel" />
-      <UButton @click="setupProfile" label="Save Changes" />
+      <UButton
+        @click="cancelEdit"
+        variant="ghost"
+        label="Cancel" />
+      <UButton
+        @click="updateProfile"
+        label="Save Changes" />
     </div>
   </div>
 </template>
@@ -101,28 +119,15 @@ definePageMeta({
 });
 
 const profileStore = useProfileStore();
-const profile = ref(profileStore.profile);
 
 const previewURL = ref(null);
 const selectedFile = ref(null);
 const inputFile = ref(null);
 
-const name = ref("");
-const username = ref("");
-const email = ref("");
-const phone = ref("");
-const tier = ref("");
-
 onMounted(async () => {
   try {
     await profileStore.getProfile();
-    const fetchedProfile = profileStore.profile;
-    // Update the refs with the fetched profile data
-    name.value = fetchedProfile ? fetchedProfile.name : "";
-    username.value = fetchedProfile ? fetchedProfile.username : "";
-    email.value = fetchedProfile ? fetchedProfile.email : "";
-    phone.value = fetchedProfile ? fetchedProfile.phone : "";
-    tier.value = fetchedProfile ? fetchedProfile.tier : "";
+    console.log("Profile fetched successfully");
   } catch (error) {
     console.error("Error fetching profile:", error);
   }
@@ -168,11 +173,17 @@ const computedImageSrc = computed(() => {
 });
 
 const setTier = (tierName) => {
-  tier.value = tierName;
-  console.log(tier.value);
+  profileStore.profile.tier = tierName;
 };
 
-const cancelEdit = () => {
+const updateProfile = () => {
+  profileStore.updateProfile();
+  navigateTo("/profile");
+};
+
+const cancelEdit = async () => {
+  await profileStore.getProfile();
+  profileStore.files = [];
   navigateTo("/profile");
 };
 

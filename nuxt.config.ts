@@ -10,7 +10,11 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@nuxt/image",
     "@vueuse/nuxt",
+    "@nuxtjs/color-mode",
   ],
+  colorMode: {
+    classSuffix: "",
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

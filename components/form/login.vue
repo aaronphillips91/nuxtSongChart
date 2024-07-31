@@ -9,7 +9,7 @@
     <div>
       <label for="email">Email</label>
       <UInput
-        v-model="email"
+        v-model="credentials.email.value"
         placeholder="email"
         icon="i-heroicons-envelope-solid"
         color="white"
@@ -18,7 +18,7 @@
     <div>
       <label for="password">Password</label>
       <UInput
-        v-model="password"
+        v-model="credentials.password.value"
         type="password"
         placeholder="password"
         icon="i-heroicons-lock-closed-solid"
@@ -26,35 +26,25 @@
         variant="outline" />
     </div>
     <UButton
-      @click="login"
-      :loading="loading"
+      @click="authStore.signIn(credentials)"
+      :loading="authStore.loading"
       type="password"
       label="Login" />
     <div class="text-xs">
       Don't have an account?
       <ULink
         class="text-primary-500"
-        to="/register"
-        >Register Here</ULink
-      >
+        to="/register">
+        Register Here
+      </ULink>
     </div>
   </div>
 </template>
 
 <script setup>
-const email = ref("");
-const password = ref("");
-const loading = ref(false);
-
-async function login() {
-  console.log("Logging in...");
-  const authStore = useAuthStore();
-  const credentials = {
-    email: email.value,
-    password: password.value,
-  };
-  loading.value = true;
-  await authStore.signIn(credentials);
-  loading.value = false;
-}
+const authStore = useAuthStore();
+const credentials = {
+  email: ref(""),
+  password: ref(""),
+};
 </script>

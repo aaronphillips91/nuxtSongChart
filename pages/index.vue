@@ -37,27 +37,4 @@ definePageMeta({
 });
 
 const user = useSupabaseUser();
-console.log(user.value);
-
-const session = useSupabaseSession();
-console.log(session.value);
-
-const list1 = ref([
-  {
-    name: "Intro",
-    id: "926",
-  },
-  {
-    name: "Verse",
-    id: "218",
-  },
-  {
-    name: "Chorus",
-    id: "316",
-  },
-  {
-    name: "Bridge",
-    id: "420",
-  },
-]);
 </script>

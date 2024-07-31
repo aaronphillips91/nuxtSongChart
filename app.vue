@@ -5,6 +5,9 @@
 </template>
 
 <script setup>
+const profile = useProfileStore();
+profile.getProfile();
+
 useHead({
   title: "SongChart",
   meta: [
@@ -14,6 +17,4 @@ useHead({
     },
   ],
 });
-const profile = useProfileStore();
-profile.getProfile();
 </script>

@@ -47,23 +47,23 @@
     <div
       class="flex items-center gap-2"
       v-else>
-      <NuxtLink to="/Register">
-        <UButton
-          variant="ghost"
-          label="Register" />
-      </NuxtLink>
-      <NuxtLink to="/login">
-        <UButton label="Login" />
-      </NuxtLink>
+      <UButton
+        to="/register"
+        variant="ghost"
+        label="Register" />
+      <UButton
+        to="/login"
+        label="Login" />
     </div>
   </nav>
 </template>
 
 <script setup>
 const user = useSupabaseUser();
-const useProfile = useProfileStore();
-const profile = computed(() => useProfile.profile);
+const profileStore = useProfileStore();
+const profile = computed(() => profileStore.profile);
 const authStore = useAuthStore();
+const colorMode = useColorMode();
 
 const isLoggedIn = ref(false);
 
