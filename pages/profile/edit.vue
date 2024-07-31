@@ -8,7 +8,7 @@
       <label for="profilePic">Profile Picture</label>
       <div class="relative flex items-center gap-4">
         <UIcon
-          v-if="previewURL"
+          v-if="profileStore.files"
           @click="cancelImage"
           class="absolute -top-[16px] left-[76px] size-8 hover:bg-red-500 hover:cursor-pointer"
           name="i-heroicons-x-circle-solid" />
@@ -16,10 +16,16 @@
           :src="computedImageSrc"
           class="rounded-lg size-24" />
         <div class="flex flex-col gap-2">
-          <UInput
-            v-model="inputFile"
-            @change="previewImage"
+          <input
+            id="file-upload"
+            class="hidden"
+            @change="handleFileSelect"
             type="file" />
+          <label
+            for="file-upload"
+            class="px-2 py-1 text-black rounded-lg bg-primary-400 hover:bg-primary-500 hover:cursor-pointer">
+            {{ profileStore.files?.upload.name || "Upload Profile Picture" }}
+          </label>
           <p class="text-xs text-gray-500">JPG, GIF, or PNG. 5MB max.</p>
         </div>
       </div>
@@ -126,12 +132,24 @@ const inputFile = ref(null);
 
 onMounted(async () => {
   try {
+    profileStore.files = null;
     await profileStore.getProfile();
     console.log("Profile fetched successfully");
   } catch (error) {
     console.error("Error fetching profile:", error);
   }
 });
+
+const handleFileSelect = (event) => {
+  const upload = event.target.files[0];
+  console.log(upload);
+  const file = {
+    upload,
+    url: URL.createObjectURL(upload),
+  };
+  profileStore.files = file;
+  console.log(profileStore.files);
+};
 
 const previewImage = (event) => {
   const file = event.target.files[0];
@@ -142,6 +160,7 @@ const previewImage = (event) => {
 };
 
 const cancelImage = () => {
+  profileStore.files = null;
   selectedFile.value = null;
   previewURL.value = null;
   inputFile.value = null;
@@ -163,11 +182,14 @@ async function setupProfile() {
 }
 
 const computedImageSrc = computed(() => {
-  if (previewURL.value) {
-    return previewURL.value;
+  if (profileStore.files) {
+    console.log("Preview Image Available");
+    return profileStore.files.url;
   } else if (profileStore.profile && profileStore.profile.pic) {
+    console.log("Profile Pic Available");
     return profileStore.profile.pic;
   } else {
+    console.log("No Image Available");
     return "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg";
   }
 });
@@ -183,7 +205,7 @@ const updateProfile = () => {
 
 const cancelEdit = async () => {
   await profileStore.getProfile();
-  profileStore.files = [];
+  profileStore.files = null;
   navigateTo("/profile");
 };
 
