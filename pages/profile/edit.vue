@@ -83,7 +83,9 @@
       <div
         v-for="t in tiers"
         class="flex flex-col w-full p-4 border rounded-lg min-w-72 border-zinc-700 scBackground hover:bg-zinc-800"
-        :class="{ '!border-primary-500': t.name == profileStore.profile.tier }">
+        :class="{
+          '!border-primary-500': t.name == profileStore.profile.sub_tier,
+        }">
         <h4 class="text-center">{{ t.name }}</h4>
         <div class="mb-4 font-black text-center">{{ t.price }}</div>
         <div class="mb-4">
@@ -113,6 +115,7 @@
         variant="ghost"
         label="Cancel" />
       <UButton
+        :loading="profileStore.loading"
         @click="updateProfile"
         label="Save Changes" />
     </div>
@@ -126,9 +129,7 @@ definePageMeta({
 
 const profileStore = useProfileStore();
 
-const previewURL = ref(null);
-const selectedFile = ref(null);
-const inputFile = ref(null);
+const currentTier = ref(profileStore.profile.sub_tier);
 
 onMounted(async () => {
   try {
@@ -151,35 +152,9 @@ const handleFileSelect = (event) => {
   console.log(profileStore.files);
 };
 
-const previewImage = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    selectedFile.value = file;
-    previewURL.value = URL.createObjectURL(file);
-  }
-};
-
 const cancelImage = () => {
   profileStore.files = null;
-  selectedFile.value = null;
-  previewURL.value = null;
-  inputFile.value = null;
 };
-
-async function setupProfile() {
-  if (selectedFile.value) {
-    await profileStore.updateProfilePic(selectedFile.value);
-  }
-  const profileData = {
-    name: name.value,
-    username: username.value,
-    email: email.value,
-    phone: phone.value,
-    sub_tier: tier.value,
-  };
-  await profileStore.updateProfile(profileData);
-  navigateTo("/profile");
-}
 
 const computedImageSrc = computed(() => {
   if (profileStore.files) {
@@ -195,12 +170,22 @@ const computedImageSrc = computed(() => {
 });
 
 const setTier = (tierName) => {
-  profileStore.profile.tier = tierName;
+  profileStore.profile.sub_tier = tierName;
+  console.log(profileStore.profile.sub_tier);
 };
 
-const updateProfile = () => {
-  profileStore.updateProfile();
-  navigateTo("/profile");
+const updateProfile = async () => {
+  if (profileStore.files) {
+    await profileStore.updateProfilePic(profileStore.files.upload);
+  } else {
+    await profileStore.updateProfile();
+  }
+  if (profileStore.profile.sub_tier !== currentTier.value) {
+    console.log("Tier Changed");
+    navigateTo(`/profile/confirm-tier/${profileStore.profile.sub_tier}`);
+  } else {
+    navigateTo("/profile");
+  }
 };
 
 const cancelEdit = async () => {

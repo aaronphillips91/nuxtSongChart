@@ -5,6 +5,7 @@ export const useProfileStore = defineStore({
   state: () => ({
     profile: null,
     files: [],
+    loading: false,
   }),
 
   actions: {
@@ -35,9 +36,11 @@ export const useProfileStore = defineStore({
         return;
       }
       this.profile = data;
+      this.loading = false;
     },
     //Updates the profile table on the currently logged in user.  Accepts an object.
     async updateProfile() {
+      this.loading = true;
       console.log(this.profile);
       const supabase = useSupabaseClient();
 
@@ -61,6 +64,7 @@ export const useProfileStore = defineStore({
 
         console.log("Profile updated successfully.");
         this.setupCompleteCheck();
+        this.loading = false;
       } catch (err) {
         console.error("Unexpected error updating profile:", err);
       }
@@ -87,6 +91,7 @@ export const useProfileStore = defineStore({
     },
     //Deletes any previous profile pics, then uploads the new one and updates the profile table with the URL of the new photo.
     async updateProfilePic(file) {
+      this.loading = true;
       const supabase = useSupabaseClient();
       if (!this.profile) {
         throw new Error("No user logged in");
@@ -122,10 +127,10 @@ export const useProfileStore = defineStore({
       if (urlError) {
         throw urlError;
       }
-      const { data: updateData, error: updateError } = await supabase
-        .from("profile")
-        .update({ pic: publicURL.publicUrl })
-        .eq("uuid", this.profile.uuid);
+      console.log("Profile Pic Uploading...", publicURL.publicUrl);
+      this.profile.pic = publicURL.publicUrl;
+      this.updateProfile();
+      this.loading = false;
     },
     //Clears the current profile. Called when the user logs out.
     async clearProfile() {

@@ -1,7 +1,10 @@
 <template>
   <div
     class="flex gap-2 p-2 mt-2 border rounded-lg scBorder scPage scBackground">
-    <img class="rounded size-32" :src="profile.pic" alt="" />
+    <img
+      class="rounded size-32"
+      :src="profile.pic"
+      alt="" />
     <div class="flex flex-col justify-between w-full">
       <div class="flex items-center justify-between w-full">
         <div class="flex justify-between gap-2">
@@ -11,9 +14,12 @@
           </div>
         </div>
         <h4>Membership: {{ profile.sub_tier }}</h4>
-        <UButton variant="ghost" @click="editProfile" class="self-start"
-          >Edit Profile</UButton
-        >
+        <UButton
+          variant="ghost"
+          @click="editProfile"
+          class="self-start">
+          Edit Profile
+        </UButton>
       </div>
       <div class="flex gap-4 mx-auto">
         <div class="px-2 text-xs bg-red-800 border border-red-600 rounded-lg">
@@ -42,7 +48,9 @@
     <div
       v-for="n in profButtons"
       class="flex w-full gap-2 p-2 border border-gray-700 rounded-lg bg-zinc-900">
-      <UIcon class="size-8" :name="n.icon" />
+      <UIcon
+        class="size-8"
+        :name="n.icon" />
       <div>{{ n.title }}</div>
       <div
         class="flex items-center justify-center ml-auto text-center align-middle rounded-lg bg-red-400/50 size-12">
@@ -95,12 +103,21 @@
     </div>
   </div>
 
-  <button class="mx-auto bg-red-500" @click="logout">Logout</button>
+  <button
+    class="mx-auto bg-red-500"
+    @click="logout">
+    Logout
+  </button>
 </template>
 
 <script setup>
 definePageMeta({
   middleware: "auth",
+});
+
+onMounted(() => {
+  const profileStore = useProfileStore();
+  profileStore.getProfile();
 });
 
 const profileStore = useProfileStore();
