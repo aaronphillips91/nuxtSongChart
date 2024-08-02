@@ -59,16 +59,16 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser();
+const user = ref(null);
 const profileStore = useProfileStore();
 const profile = computed(() => profileStore.profile);
 const authStore = useAuthStore();
-const colorMode = useColorMode();
 
 const isLoggedIn = ref(false);
 
 onBeforeMount(async () => {
-  isLoggedIn.value = authStore.setUser;
+  isLoggedIn.value = await authStore.setUser;
+  user.value = computed(() => useSupabaseeUser());
 });
 
 const items = [

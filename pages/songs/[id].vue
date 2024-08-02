@@ -38,6 +38,7 @@
     </div>
     <div class="h-full"></div>
   </div>
+
   <div v-else>
     <UProgress animation="carousel" />
   </div>

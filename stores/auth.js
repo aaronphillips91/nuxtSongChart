@@ -26,7 +26,7 @@ export const useAuthStore = defineStore({
         this.loading = false;
       } else {
         this.user = data.user;
-        await profileStore.createProfile(data.user);
+        await profileStore.createProfile();
         this.loading = false;
         navigateTo("/profile/setup");
       }
@@ -69,11 +69,6 @@ export const useAuthStore = defineStore({
         profileStore.clearProfile();
         navigateTo("/login");
       }
-    },
-    //Checks if the current user is logged in using Supabase Auth.
-    async setUser() {
-      const currentUser = useSupabaseUser();
-      this.user = currentUser.value;
     },
   },
   persist: true,

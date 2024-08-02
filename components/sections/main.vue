@@ -9,16 +9,16 @@
     class="flex flex-col gap-2">
     <SectionsCardDesktop
       v-if="!isMobile"
-      :section
-      :song
+      v-for="section in localSections"
       :key="section"
-      v-for="section in localSections" />
+      :section
+      :song />
     <SectionsCardMobile
       v-if="isMobile"
-      :section
-      :song
+      v-for="section in localSections"
       :key="section"
-      v-for="section in localSections" />
+      :section
+      :song />
   </VueDraggable>
   <BaseCard
     @click="createSection"

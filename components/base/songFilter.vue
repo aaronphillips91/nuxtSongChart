@@ -21,15 +21,15 @@
 </template>
 
 <script setup>
-const songStore = useSongStore();
+const chartStore = useChartStore();
 const profileStore = useProfileStore();
 const profile = profileStore.profile;
 
 onMounted(() => {
-  songStore.getSongs();
+  chartStore.getSongs();
 });
 
-const songs = computed(() => songStore.songs);
+const songs = computed(() => chartStore.songs);
 
 const props = defineProps({
   searchQuery: {
@@ -39,11 +39,11 @@ const props = defineProps({
 });
 
 const openModal = () => {
-  songStore.openNewSongModal();
+  chartStore.openNewSongModal();
 };
 
 const goToSong = async (songId) => {
-  await songStore.getSong(songId);
+  await chartStore.getSong(songId);
   navigateTo(`/songs/${songId}`);
 };
 

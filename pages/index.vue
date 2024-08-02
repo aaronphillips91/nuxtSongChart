@@ -4,29 +4,20 @@
       class="w-1/2 mx-auto dark:invert-0 invert"
       src="/logos/SongChart Logo.svg"
       alt="" />
-    <div
-      v-if="!user"
-      class="flex gap-4">
-      <UButton
-        to="/login"
-        label="Login" />
-      <UButton
-        to="/register"
-        label="Register" />
-    </div>
     <div v-if="user">
       <UButton
-        to="/songs"
+        to="/profile"
         label="Dashboard" />
     </div>
-    <div v-else>
+    <UButtonGroup v-else>
       <UButton
+        color="white"
         to="/login"
         label="Login" />
       <UButton
         to="/register"
         label="Register" />
-    </div>
+    </UButtonGroup>
   </div>
 </template>
 

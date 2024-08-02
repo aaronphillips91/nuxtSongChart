@@ -3,6 +3,7 @@
 export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   devtools: { enabled: true },
+
   modules: [
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
@@ -12,16 +13,21 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxtjs/color-mode",
   ],
+
   colorMode: {
     classSuffix: "",
   },
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   supabase: {
     redirect: false,
   },
+
+  compatibilityDate: "2024-08-01",
 });

@@ -23,7 +23,7 @@
 
 <script setup>
 const profileStore = useProfileStore();
-const songStore = useSongStore();
+const chartStore = useChartStore();
 
 const previewURL = ref(null);
 const selectedFile = ref(null);
@@ -65,9 +65,9 @@ const computedImageSrc = computed(() => {
     default:
       switch (intent) {
         case "album":
-          if (songStore.song && songStore.song.art) {
+          if (chartStore.song && chartStore.song.art) {
             console.log("album is the intent");
-            return songStore.song.art;
+            return chartStore.song.art;
           } else {
             console.log("album is the intent");
             return "https://cdn.last.fm/flatness/responsive/2/noimage/default_album_300_g4.png";

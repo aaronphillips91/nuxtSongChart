@@ -34,15 +34,9 @@
         <div
           id="bottom-left"
           class="flex flex-col w-1/2 gap-2 min-w-96">
-          <UTextarea
-            v-model="localSection.content.value"
-            @change="handleChange"
-            autoresize
-            wrap="off"
-            class="overflow-x-scroll no-scrollbar text-nowrap"
-            :rows="4"
-            placeholder="Lyrics and Chords here" />
-          <SectionsNotes :song />
+          <FormAutochord
+            :section
+            :songKey="song.original_key" />
         </div>
         <div
           id="bottom-right"

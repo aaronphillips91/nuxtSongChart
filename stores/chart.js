@@ -22,13 +22,13 @@ export const useChartStore = defineStore({
       this.newSongModal = false;
       console.log("modal closed");
     },
-
     //Song Actions
     async getSongs() {
       const supabase = useSupabaseClient();
-      const user = useSupabaseUser();
+      const authStore = useAuthStore();
+      const user = await authStore.user;
 
-      if (!user.value) {
+      if (!user) {
         console.error("No user is logged in");
         return;
       }
@@ -36,7 +36,7 @@ export const useChartStore = defineStore({
       const { data, error } = await supabase
         .from("song")
         .select("*")
-        .eq("creator_id", user.value.id);
+        .eq("creator_id", user.id);
 
       if (error) {
         console.error("Error fetching songs: ", error.message);
@@ -123,7 +123,6 @@ export const useChartStore = defineStore({
         this.getSongs();
       }
     },
-
     //Section Actions
     async getSections(songId) {
       const supabase = useSupabaseClient();
@@ -203,7 +202,6 @@ export const useChartStore = defineStore({
       // After updating all sections, fetch the updated list
       await this.getSections(this.song.uuid);
     },
-
     //Arrangement Actions
     async getArrangements(songId) {
       const supabase = useSupabaseClient();
@@ -289,7 +287,6 @@ export const useChartStore = defineStore({
       // After updating all sections, fetch the updated list
       await this.getSections(this.song.uuid);
     },
-
     //Arrangement Section Actions
     async createArrangementSection(arrangementSection) {
       const supabase = useSupabaseClient();
@@ -349,7 +346,6 @@ export const useChartStore = defineStore({
         this.getArrangementSections(this.arrangement.uuid);
       }
     },
-
     //Art Actions
     async uploadArt(file) {
       const supabase = useSupabaseClient();
